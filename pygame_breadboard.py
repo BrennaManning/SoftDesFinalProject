@@ -25,8 +25,8 @@ class Background(pygame.sprite.Sprite):
     """ Represents the background """
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('images/breadboard_background.jpg')
-        self.image = pygame.transform.scale(self.image, (640,360))
+        self.image = pygame.image.load('images/circuitsim.png')
+        self.image = pygame.transform.scale(self.image, (720,360))
         self.image.set_colorkey((255,255,255))
 
     def get_drawables(self):
@@ -35,10 +35,9 @@ class Background(pygame.sprite.Sprite):
                                 pygame.Rect((0,0), self.image.get_size()))
 
 class Nodes():
-	""" represents all indicated places for circuit connectors """
-	def __init__(self, pos_x, pos_y):
-	    self.pos_x = pos_x
-	    self.pos_y = pos_y
+    """ represents all indicated places for circuit connectors """
+    def __init__(self, pos_x, pos_y):
+    	pass
 
     def update(self):
         """ updates current and voltage values of nodes"""
@@ -48,9 +47,14 @@ class Nodes():
 
 # 	def calculate_current(self,model):
 
-# class Connections():
-# 	""" represents all placed connections, including wires, resistors, and 
-# 		capacitors """
+class Connections():
+	""" represents all placed connections, including wires, resistors, and 
+		capacitors """
+	def __init___(self, node_1, node_2, type, value):
+		pass
+
+	def get_drawables():
+		""" draws the circuit components on the breadboard """
 
 class Model():
     """ Represents the game state of the scroller """
@@ -60,6 +64,7 @@ class Model():
         self.height = height
         self.background = Background()
         self.nodes = []
+        self.connections = []
 
     def update(self):
         """ updates all aspects of the game """
@@ -73,10 +78,11 @@ class Model():
         """ Return a list of DrawableSurfaces for the model """
         return self.background.get_drawables()
 
-    def add_node(self):
+    def add_node(self,mpos):
     	""" adds a node to the list of nodes, to be used in voltage and 
     		current calculations"""
-
+    	self.nodes.append(Nodes(mpos[0],mpos[1]))
+    	print len(self.nodes)
 
 class View():
     def __init__(self, g_model, width, height):
@@ -104,21 +110,32 @@ class Controller():
 
 	def process_events(self):
 		""" process keyboard events. Function called periodically """
+		pass
+
+	def add_connection(self):
+		""" processes the series of clicks required to generate connections
+			outputs a list consisting of the first connection node, the second,
+			the connection type (wire, R,C, etc), and the connection value """
+		connection_factors = []
+
 		pygame.event.pump()
 		if pygame.mouse.get_pressed() != (1, 0, 0):
 			self.mouse_pressed = False
 		elif not (self.mouse_pressed):
 			self.mouse_pressed = True
 			mpos = pygame.mouse.get_pos()
-			mpos = ((mpos[0]-80)/80 + 1,(mpos[1]-60)/80 + 1)
-			self.model.nodes.node_add(mpos)
+			if len(connection_factors) < 2:
+				mpos = ((mpos[0]-275)/70 + 1,(mpos[1]-65)/85 + 1)
+				if mpos[0] > 0 and mpos[0] < 7:
+					if mpos[1] > 0 and mpos[1] < 4:
+						self.model.add_node(mpos)
 
 class pygameBreadboard():
-    """ The main SideScroller class """
+    """ The main class """
     def __init__(self):
         """ Initialize the board """
-        self.game_model = Model(640, 360)
-        self.view = View(self.game_model, 640, 360)
+        self.game_model = Model(720, 360)
+        self.view = View(self.game_model, 720, 360)
         self.controller = Controller(self.game_model)
 
     def run(self):
