@@ -26,7 +26,8 @@ class Background(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('images/circuitsim.png')
-        self.image = pygame.transform.scale(self.image, (720,360))
+        # self.image = pygame.image.load('images/breadboard_background.jpg')
+        self.image = pygame.transform.scale(self.image, (840,360))
         self.image.set_colorkey((255,255,255))
 
     def get_drawables(self):
@@ -34,27 +35,72 @@ class Background(pygame.sprite.Sprite):
         return DrawableSurface(self.image,
                                 pygame.Rect((0,0), self.image.get_size()))
 
-class Nodes():
-    """ represents all indicated places for circuit connectors """
-    def __init__(self, pos_x, pos_y):
-    	pass
+# class Nodes():
+#     """ represents all indicated places for circuit connectors """
+#     def __init__(self, pos_x, pos_y):
+#     	pass
 
-    def update(self):
-        """ updates current and voltage values of nodes"""
-        pygame.event.pump()
+#     def update(self):
+#         """ updates current and voltage values of nodes"""
+#         pygame.event.pump()
 
 # 	def calculate_voltage(self,model):
 
 # 	def calculate_current(self,model):
 
-class Connections():
-	""" represents all placed connections, including wires, resistors, and 
-		capacitors """
-	def __init___(self, node_1, node_2, type, value):
-		pass
+class Resistor():
+    def __init__(self, pos1, pos2, r1):
+        """ initializes a resistor """
+        self.pos1 = pos1
+        self.pos2 = pos2
+        self.r1 = r1
+        self.image = pygame.image.load('images/Resistor.png')
+        print self.pos1
+        print self.pos2
+        print r1
+        
+    def draw_block(self):
+        """ gets the drawables for the circuit block """
+        return DrawableSurface(self.image,pygame.Rect((self.pos1),
+                                self.image.get_size()))
 
-	def get_drawables():
-		""" draws the circuit components on the breadboard """
+class Capacitor():
+    pass
+
+class HP_RC_filter():
+    pass
+
+class LP_RC_filter():
+    pass
+
+class DoubleResistor():
+    """ represents a double resistor. Initialized with three positions and two 
+    resistor values. """
+    def __init__(self, pos1, pos2, pos3, r1, r2):
+        """ initializes the double resistor """
+        self.pos1 = pos1
+        self.pos2 = pos2
+        self.pos3 = pos3
+        self.r1 = r1
+        self.r2 = r2
+        if pos1(0) == pos3(0) or pos1(1) == pos3(1):
+            self.image = pygame.image.load('images/doubresist_straight')
+        else:
+            self.image = pygame.image.load('images/doubresist_bent')
+
+    def draw_block(self):
+        """ gets the drawables for the circuit block """
+        return DrawableSurface(self.image,pygame.Rect((self.pos1),
+                                self.image.get_size()))
+
+# class Connections():
+# 	""" represents all placed connections, including wires, resistors, and 
+# 		capacitors """
+# 	def __init___(self, node_1, node_2, type, value):
+# 		pass
+
+# 	def get_drawables():
+# 		""" draws the circuit components on the breadboard """
 
 class Model():
     """ Represents the game state of the scroller """
@@ -78,11 +124,11 @@ class Model():
         """ Return a list of DrawableSurfaces for the model """
         return self.background.get_drawables()
 
-    def add_node(self,mpos):
-    	""" adds a node to the list of nodes, to be used in voltage and 
-    		current calculations"""
-    	self.nodes.append(Nodes(mpos[0],mpos[1]))
-    	print len(self.nodes)
+    # def add_node(self,mpos):
+    # 	""" adds a node to the list of nodes, to be used in voltage and 
+    # 		current calculations"""
+    # 	self.nodes.append(Nodes(mpos[0],mpos[1]))
+    # 	print len(self.nodes)
 
 class View():
     def __init__(self, g_model, width, height):
@@ -104,38 +150,67 @@ class View():
         self.screen.blit(surf, rect)
 
 class Controller():
-	def __init__(self, model):
+    def __init__(self, model):
 		self.model = model
 		self.mouse_pressed = False
 
-	def process_events(self):
-		""" process keyboard events. Function called periodically """
-		pass
+    def process_events(self):
+        """ process keyboard events. Function called periodically """
+        pygame.event.pump()
+        if pygame.mouse.get_pressed() != (1, 0, 0):
+            self.mouse_pressed = False
+        elif not (self.mouse_pressed):
+            self.mouse_pressed = True
+            mpos = pygame.mouse.get_pos()
+            # print mpos
+            if mpos[0] >= 75 and mpos[0] <= 250:
+                if mpos[1] >= 115 and mpos[1] <= 150:
+                    print "select the resistor's first position"
+                    pos1 = self.get_click_coordinates()
+                    print pos1
+                    if type(pos1) is tuple:
+                        print "select the resistor's second position"
+                        pos2 = self.get_click_coordinates()
+                        r1 = raw_input("Type resistor value: ")
+                        resistor = Resistor(pos1, pos2, r1)
+            else:
+                pass
+
+    def get_click_coordinates(self):
+        if pygame.mouse.get_pressed() != (1, 0, 0):
+            self.mouse_pressed = False
+        elif not (self.mouse_pressed):
+            self.mouse_pressed = True
+            mpos = pygame.mouse.get_pos()
+            print mpos
+            return mpos
 
 	def add_connection(self):
 		""" processes the series of clicks required to generate connections
 			outputs a list consisting of the first connection node, the second,
 			the connection type (wire, R,C, etc), and the connection value """
-		connection_factors = []
 
-		pygame.event.pump()
-		if pygame.mouse.get_pressed() != (1, 0, 0):
-			self.mouse_pressed = False
-		elif not (self.mouse_pressed):
-			self.mouse_pressed = True
-			mpos = pygame.mouse.get_pos()
-			if len(connection_factors) < 2:
-				mpos = ((mpos[0]-275)/70 + 1,(mpos[1]-65)/85 + 1)
-				if mpos[0] > 0 and mpos[0] < 7:
-					if mpos[1] > 0 and mpos[1] < 4:
-						self.model.add_node(mpos)
+        pass
+		# connection_factors = []
+
+		# pygame.event.pump()
+		# if pygame.mouse.get_pressed() != (1, 0, 0):
+	 #        self.mouse_pressed = False
+		# elif not (self.mouse_pressed):
+		#     self.mouse_pressed = True
+		#     mpos = pygame.mouse.get_pos()
+	 #        if len(connection_factors) < 2:
+		# 	    mpos = ((mpos[0]-275)/70 + 1,(mpos[1]-65)/85 + 1)
+  #               if mpos[0] > 0 and mpos[0] < 7:
+  #                   if mpos[1] > 0 and mpos[1] < 4:
+  #                       self.model.add_node(mpos)
 
 class pygameBreadboard():
     """ The main class """
     def __init__(self):
         """ Initialize the board """
-        self.game_model = Model(720, 360)
-        self.view = View(self.game_model, 720, 360)
+        self.game_model = Model(840, 360)
+        self.view = View(self.game_model, 840, 360)
         self.controller = Controller(self.game_model)
 
     def run(self):
