@@ -26,7 +26,8 @@ class Background(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('images/circuitsim.png')
-        self.image = pygame.transform.scale(self.image, (720,360))
+        # self.image = pygame.image.load('images/breadboard_background.jpg')
+        self.image = pygame.transform.scale(self.image, (840,360))
         self.image.set_colorkey((255,255,255))
 
     def get_drawables(self):
@@ -48,7 +49,20 @@ class Background(pygame.sprite.Sprite):
 # 	def calculate_current(self,model):
 
 class Resistor():
-    pass
+    def __init__(self, pos1, pos2, r1):
+        """ initializes a resistor """
+        self.pos1 = pos1
+        self.pos2 = pos2
+        self.r1 = r1
+        self.image = pygame.image.load('images/Resistor.png')
+        print self.pos1
+        print self.pos2
+        print r1
+        
+    def draw_block(self):
+        """ gets the drawables for the circuit block """
+        return DrawableSurface(self.image,pygame.Rect((self.pos1),
+                                self.image.get_size()))
 
 class Capacitor():
     pass
@@ -148,8 +162,29 @@ class Controller():
         elif not (self.mouse_pressed):
             self.mouse_pressed = True
             mpos = pygame.mouse.get_pos()
+            # print mpos
+            if mpos[0] >= 75 and mpos[0] <= 250:
+                if mpos[1] >= 115 and mpos[1] <= 150:
+                    print "select the resistor's first position"
+                    pos1 = self.get_click_coordinates()
+                    print pos1
+                    if type(pos1) is tuple:
+                        print "select the resistor's second position"
+                        pos2 = self.get_click_coordinates()
+                        r1 = raw_input("Type resistor value: ")
+                        resistor = Resistor(pos1, pos2, r1)
+            else:
+                pass
+
+    def get_click_coordinates(self):
+        if pygame.mouse.get_pressed() != (1, 0, 0):
+            self.mouse_pressed = False
+        elif not (self.mouse_pressed):
+            self.mouse_pressed = True
+            mpos = pygame.mouse.get_pos()
+            print mpos
             return mpos
-            
+
 	def add_connection(self):
 		""" processes the series of clicks required to generate connections
 			outputs a list consisting of the first connection node, the second,
@@ -174,8 +209,8 @@ class pygameBreadboard():
     """ The main class """
     def __init__(self):
         """ Initialize the board """
-        self.game_model = Model(720, 360)
-        self.view = View(self.game_model, 720, 360)
+        self.game_model = Model(840, 360)
+        self.view = View(self.game_model, 840, 360)
         self.controller = Controller(self.game_model)
 
     def run(self):
