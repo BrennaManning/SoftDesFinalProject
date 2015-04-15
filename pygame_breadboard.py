@@ -56,7 +56,7 @@ class Connections():
 
     def get_drawables():
         """ draws the circuit components on the breadboard """
-
+        pass
 
 class Model():
     """ Represents the game state of the scroller """
@@ -81,7 +81,6 @@ class Model():
         return self.background.get_drawables()
 
     def add_node(self,mpos):
-
         """ adds a node to the list of nodes, to be used in voltage and 
             current calculations"""
         self.nodes.append(Nodes(mpos[0],mpos[1]))
@@ -95,6 +94,7 @@ class Model():
             """for example:"""
             blocks = [['r', 100], ['c', 1]]
             #level one has two blocks because it needs 1 resistor and 1 capacitor to build the passive low pass filter"""
+
             block1 = blocks[1]
             block2 = blocks[2]
             fail = False
@@ -112,6 +112,7 @@ class Model():
                 cutoff_frequency = 1/(2*3.14*r1*c1)
 
                 print "cutoff_frequency = " + cutoff_frequency
+
 
 
 class View():
@@ -142,6 +143,7 @@ class Controller():
         """ process keyboard events. Function called periodically """
         pass
 
+
     def add_connection(self):
         """ processes the series of clicks required to generate connections
             outputs a list consisting of the first connection node, the second,
@@ -159,7 +161,7 @@ class Controller():
                 if mpos[0] > 0 and mpos[0] < 7:
                     if mpos[1] > 0 and mpos[1] < 4:
                         self.model.add_node(mpos)
-
+                        
 
 class pygameBreadboard():
     """ The main class """
