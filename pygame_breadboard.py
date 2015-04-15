@@ -33,30 +33,64 @@ class Background(pygame.sprite.Sprite):
         return DrawableSurface(self.image,
                                 pygame.Rect((0,0), self.image.get_size()))
 
-class Nodes():
-    """ represents all indicated places for circuit connectors """
-    def __init__(self, pos_x, pos_y):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
+
+# class Nodes():
+#     """ represents all indicated places for circuit connectors """
+#     def __init__(self, pos_x, pos_y):
+#     	self.pos_x = pos_x
+#       self.pos_y = pos_y
 
 
-    def update(self):
-        """ updates current and voltage values of nodes"""
-        pygame.event.pump()
+#     def update(self):
+#         """ updates current and voltage values of nodes"""
+#         pygame.event.pump()
 
 #   def calculate_voltage(self,model):
 
 #   def calculate_current(self,model):
 
-class Connections():
-    """ represents all placed connections, including wires, resistors, and 
-        capacitors """
-    def __init___(self, node_1, node_2, type, value):
-        pass
 
-    def get_drawables():
-        """ draws the circuit components on the breadboard """
-        pass
+class Resistor():
+    pass
+
+class Capacitor():
+    pass
+
+class HP_RC_filter():
+    pass
+
+class LP_RC_filter():
+    pass
+
+class DoubleResistor():
+    """ represents a double resistor. Initialized with three positions and two 
+    resistor values. """
+    def __init__(self, pos1, pos2, pos3, r1, r2):
+        """ initializes the double resistor """
+        self.pos1 = pos1
+        self.pos2 = pos2
+        self.pos3 = pos3
+        self.r1 = r1
+        self.r2 = r2
+        if pos1(0) == pos3(0) or pos1(1) == pos3(1):
+            self.image = pygame.image.load('images/doubresist_straight')
+        else:
+            self.image = pygame.image.load('images/doubresist_bent')
+
+    def draw_block(self):
+        """ gets the drawables for the circuit block """
+        return DrawableSurface(self.image,pygame.Rect((self.pos1),
+                                self.image.get_size()))
+
+# class Connections():
+# 	""" represents all placed connections, including wires, resistors, and 
+# 		capacitors """
+# 	def __init___(self, node_1, node_2, type, value):
+# 		pass
+
+# 	def get_drawables():
+# 		""" draws the circuit components on the breadboard """
+
 
 class Model():
     """ Represents the game state of the scroller """
@@ -79,6 +113,7 @@ class Model():
     def get_background_drawables(self):
         """ Return a list of DrawableSurfaces for the model """
         return self.background.get_drawables()
+
 
     def add_node(self,mpos):
         """ adds a node to the list of nodes, to be used in voltage and 
@@ -156,12 +191,16 @@ class Controller():
         elif not (self.mouse_pressed):
             self.mouse_pressed = True
             mpos = pygame.mouse.get_pos()
+
             if len(connection_factors) < 2:
                 mpos = ((mpos[0]-275)/70 + 1,(mpos[1]-65)/85 + 1)
                 if mpos[0] > 0 and mpos[0] < 7:
                     if mpos[1] > 0 and mpos[1] < 4:
                         self.model.add_node(mpos)
                         
+            return mpos
+            
+
 
 class pygameBreadboard():
     """ The main class """
