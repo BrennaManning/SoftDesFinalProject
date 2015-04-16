@@ -121,7 +121,7 @@ class Model():
         self.nodes.append(Nodes(mpos[0],mpos[1]))
         print len(self.nodes)
 
-
+    
     def calculate_cutoff_frequency(self, blocks):
         if level == 1: #Different setup & equations for different levels
             """CALCULATE CUTOFF FREQUENCY FOR LEVEL ONE - PASSIVE LOW PASS FILTER"""
@@ -129,7 +129,6 @@ class Model():
             """for example:"""
             blocks = [['r', 100], ['c', 1]]
             #level one has two blocks because it needs 1 resistor and 1 capacitor to build the passive low pass filter"""
-
             block1 = blocks[1]
             block2 = blocks[2]
             fail = False
