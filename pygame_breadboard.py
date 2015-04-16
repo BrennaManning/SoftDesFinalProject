@@ -5,7 +5,6 @@
 import random
 from random import randint
 import time
-
 import pygame
 
 class DrawableSurface():
@@ -70,6 +69,10 @@ class Capacitor():
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
 
+class Blocks():
+    pass
+
+
 class HP_RC_filter():
     pass
 
@@ -111,7 +114,9 @@ class Model():
     def update(self):
         """ updates all aspects of the game """
         events = pygame.event.get()
-        if events == pygame.mouse.get_pressed():
+        pygame.event.pump
+        if pygame.mouse.get_pressed() == (1, 0, 0):
+            self.mouse_pressed = True
             self.resistor.pos = pygame.mouse.get_pos()
             self.resistor.draw_block
 
@@ -169,7 +174,6 @@ class Controller():
             # mpos = pygame.mouse.get_pos()
                 # if self.state = 0:
 
-
         if pygame.mouse.get_pressed() != (1, 0, 0):
             self.mouse_pressed = False
         elif not (self.mouse_pressed):
@@ -194,6 +198,7 @@ class pygameBreadboard():
             self.controller.process_events()
             self.game_model.update()
             pygame.display.update()
+
 
 if __name__ == '__main__':
     board = pygameBreadboard()
