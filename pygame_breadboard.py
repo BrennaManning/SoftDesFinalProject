@@ -27,6 +27,7 @@ class Background(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
+        #small nitpicky point here that others may or may not agree on depending on what conventions they use: you guys save your variables to self.somethin and then perform operations on the something. Often when I see self.something, I expect to see the value being set and not being modified right away. just use a normal variable, perform operations on it, and then set self.something to what you need it to be.
         # self.image = pygame.image.load('images/breadboard_background.jpg')
         self.image = pygame.transform.scale(self.image, (960,480))
         self.image.set_colorkey((255,255,255))
@@ -48,6 +49,7 @@ class Resistor():
         print r1
         
     def draw_block(self):
+#given what the function does, I'd rename this function to get_drawables as well. 
         """ gets the drawables for the circuit block """
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
@@ -87,6 +89,7 @@ class DoubleResistor():
         self.pos1 = pos1
         self.pos2 = pos2
         self.pos3 = pos3
+        #are there more informative names than pos(1,2,3) that you could use?
         self.r1 = r1
         self.r2 = r2
         if pos1(0) == pos3(0) or pos1(1) == pos3(1):
@@ -146,6 +149,7 @@ class View():
         surf = d.get_surface()
         surf.set_colorkey((255,255,255))
         self.screen.blit(surf, rect)
+#another thing to think about is that once you get to user input adding resistors or capacitors, it should look a little something like this: user clicks, so controller edits the model to have a Resistor object where the user clicked. The view, in turn, gets_drawables from the Model class, which returns a list of drawables, and that list includes the newly added resistor object's drawables. Then the view draws the drawables.
         self.r1_button = pygame.image.load('images/Resistor.png')
         self.r1_button = pygame.transform.scale(self.r1_button, (120, 30))
         self.screen.blit(self.r1_button,(60,180))
@@ -158,6 +162,7 @@ class View():
         self.c2_button = pygame.image.load('images/Capacitor.png')
         self.c2_button = pygame.transform.scale(self.c2_button, (120, 30))
         self.screen.blit(self.c2_button, (60,330))
+#hm, it seems like this part of the GUI that your building (if I understand correctly) will stay the same through the levels. Ya'll should consider just putting everything into one image so you don't have to separately load them and specify where they're drawn, if that's the case. Could everything (background and nonchanging gui elements) be considered one background that you load?
 
 class Controller():
     def __init__(self, model):
@@ -196,6 +201,7 @@ class pygameBreadboard():
         while not(self.game_model.end_program()):
             self.view.draw()
             self.controller.process_events()
+            #To utilize MVC well, use the controller to update the model! Think of the model as a store of data that gets changed by the user input (the controller). Model update stuff should be stuff that happens without user input, like a ball in brick breaker continuing to move in the direction that it's going, for instance. There seems to be a bit of a misunderstanding here about how the controller is meant to be used. Feel free to ask me more.
             self.game_model.update()
             pygame.display.update()
 
