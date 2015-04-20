@@ -2,6 +2,8 @@ import random
 from random import randint
 import time
 import pygame
+import model
+from controller import *
 
 class View():
     def __init__(self, g_model, width, height):
@@ -11,7 +13,9 @@ class View():
         #determine where to draw
         self.screen = pygame.display.set_mode((width, height))
         self.game_model = g_model
-
+        #self.game_model = model.Model(960, 480)
+        #self.view = View(self.game_model, 960, 480)
+        #self.controller = Controller(self.game_model)
     def draw(self):
         """ Redraw the full game window """
         # get the new drawables
@@ -48,16 +52,71 @@ class DrawableSurface():
         """ Get the rect """
         return self.rect
 
-class Background(pygame.sprite.Sprite):
-    """ Represents the background """
+
+# class Background(pygame.sprite.Sprite):
+#     """ Represents the background """
+#     def __init__(self):
+#         pygame.sprite.Sprite.__init__(self)
+#         self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
+#         # self.image = pygame.image.load('images/breadboard_background.jpg')
+#         self.image = pygame.transform.scale(self.image, (960,480))
+#         self.image.set_colorkey((255,255,255))
+
+#     def get_drawables(self):
+#         """ Gets the drawables for the background """
+#         return DrawableSurface(self.image,
+#                                 pygame.Rect((0,0), self.image.get_size()))
+
+class Background(object):
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+        self.screen = pygame.display.set_mode((400,200))
+        self.state = 0
+        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
+        self.pos = (0,0)
         self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
-        # self.image = pygame.image.load('images/breadboard_background.jpg')
         self.image = pygame.transform.scale(self.image, (960,480))
         self.image.set_colorkey((255,255,255))
+        self.selected = "none"
+
+
+
+    def run(self):
+        while True:
+            self.update()
+            self.get_drawables
+
+
+
+    def update(self):
+       """ updates all aspects of the game """
+       
+       for event in pygame.event.get():
+           if event.type == pygame.QUIT: sys.exit()
+           if event.type == pygame.MOUSEBUTTONDOWN:
+               mpos = pygame.mouse.get_pos() 
+               if self.state == 0:
+                   self.selected = "none"
+                   if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
+                        if mpos[1] < 225 and mpos[1] > 180:
+                            self.selected = "r1"
+                        elif mpos[1] < 270 and mpos[1] >225:
+                            self.selected = "r2"
+                        elif mpos[1] < 315 and mpos[1] > 270:
+                            self.selected = "c1"
+                        elif mpos[1] < 360 and mpos[1] > 315:
+                            self.selected = "c2"
+                        print self.selected
+                        self.state = 1
+               else: #self.state == 1
+                   #print self.selected
+                   if mpos[0] > 200:
+                       if self.state == 1:
+                           self.pos = mpos
+                           self.state = 0
+                           
+               print(self.states[self.state])
+               
 
     def get_drawables(self):
-        """ Gets the drawables for the background """
-        return DrawableSurface(self.image,
-                                pygame.Rect((0,0), self.image.get_size()))
+        """Gets the drawables for the background"""
+        return DrawableSurface(self.image,pygame.Rect((0,0), self.image.get_size()))

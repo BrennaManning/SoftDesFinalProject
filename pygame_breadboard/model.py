@@ -3,7 +3,7 @@ from random import randint
 import time
 import pygame
 from view import *
-
+from controller import *
 
 class Model():
     """ Represents the game state of the scroller """
@@ -16,15 +16,27 @@ class Model():
         self.connections = []
         self.pos = ()
         self.resistor = Resistor(self.pos, "r1")
+        #self.view = View(self, 960, 480)
+        #self.controller = Controller(self.game_model)
+        #self.controller = Controller(self)
+
+   
+
+           # pygame.mouse.get_pressed() == (1, 0, 0):
+            #self.mouse_pressed = True
+            #self.mouse_pressed = True
+            #self.resistor.pos = pygame.mouse.get_pos()
+            #self.resistor.draw_block
+
+        self.state = 0
+        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
 
     def update(self):
-        """ updates all aspects of the game """
+        """updates all aspects of the game"""
         events = pygame.event.get()
-        pygame.event.pump
-        if pygame.mouse.get_pressed() == (1, 0, 0):
-            self.mouse_pressed = True
-            self.resistor.pos = pygame.mouse.get_pos()
-            self.resistor.draw_block
+        self.background.run()
+
+    
 
     def end_program(self):
     	"""ends the program"""
@@ -37,6 +49,9 @@ class Model():
         """ Return a list of DrawableSurfaces for the model """
         return self.background.get_drawables()
 
+
+    def calculate_cutoff_frequency():
+        pass
 
 class Resistor():
     def __init__(self, pos, r1):
@@ -54,7 +69,7 @@ class Resistor():
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
 
-class Capacitor(Block):
+class Capacitor():
     def __init__ (self, pos1, pos2, c1):
         """initializes a capacitor"""
         self.pos1 = pos1
@@ -70,8 +85,6 @@ class Capacitor(Block):
         """ gets the drawables for the circuit block """
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
-
-
 
 class HP_RC_filter():
     pass
@@ -98,3 +111,5 @@ class DoubleResistor():
         """ gets the drawables for the circuit block """
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
+
+

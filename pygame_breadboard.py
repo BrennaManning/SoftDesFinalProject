@@ -36,7 +36,11 @@ class Background(pygame.sprite.Sprite):
         return DrawableSurface(self.image,
                                 pygame.Rect((0,0), self.image.get_size()))
 
-class Resistor():
+
+class Block():
+    pass
+
+class Resistor(Block):
     def __init__(self, pos, r1):
         """ initializes a resistor """
         self.pos = pos
@@ -52,7 +56,7 @@ class Resistor():
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
 
-class Capacitor():
+class Capacitor(Block):
     def __init__ (self, pos1, pos2, c1):
         """initializes a capacitor"""
         self.pos1 = pos1
@@ -69,8 +73,7 @@ class Capacitor():
         return DrawableSurface(self.image,pygame.Rect((self.pos1),
                                 self.image.get_size()))
 
-class Blocks():
-    pass
+
 
 
 class HP_RC_filter():

@@ -2,13 +2,16 @@ import random
 from random import randint
 import time
 import pygame
-
+from model import *
+from view import *
 
 class Controller():
     def __init__(self, model):
 	""" the control class """
-    	self.model = model
+        #self.game_model = model.Model(960, 480)
+        self.game_model = model
         self.state = 0
+        #self.view = View(self.game_model, 960, 480)
 
     def process_events(self):
         """ process keyboard events. Function called periodically """
