@@ -35,17 +35,15 @@ class Model():
     def update(self):
         """updates all aspects of the game"""
         events = pygame.event.get()
-        self.background.run()
+        self.run()
 
 
     def run(self):
         while True:
-            self.update()
-            self.get_drawables
+            self.update_stuff()
+            Background.get_drawables
 
-
-
-    def update(self):
+    def update_stuff(self):
        """ updates all aspects of the game """
        
        for event in pygame.event.get():
@@ -70,11 +68,16 @@ class Model():
                    if mpos[0] > 200:
                        if self.state == 1:
                            self.pos = mpos
-                           self.state = 0
-                           
+                           print "hello!"
+                           print self.pos
+                           self.define_spot(self.pos)
+                           self.state = 0 
                print(self.states[self.state])
-               
 
+    def define_spot(self,mpos):
+        """ determines which specific spot had been clicked """
+        mpos_coord = ((mpos[0] - 217)/95, (mpos[1] - 127)/95)
+        print mpos_coord
     
     def end_program(self):
     	"""ends the program"""
@@ -115,12 +118,24 @@ class component():
 
         print self.pos
 
-
     def draw_block(self):
         """gets the drawables for the component block"""
 
         return DrawableSurface(self.image,pygame.Rect((self.pos),
                                 self.image.get_size()))
 
+class Background(object):
+    def __init__(self):
+        self.screen = pygame.display.set_mode((400,200))
+        self.state = 0
+        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
+        self.pos = (0,0)
+        self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
+        self.image = pygame.transform.scale(self.image, (960,480))
+        self.image.set_colorkey((255,255,255))
+        self.selected = "none"
 
-
+    def get_drawables(self):
+        """Gets the drawables for the background"""
+        return DrawableSurface(self.image,pygame.Rect((0,0), self.image.get_size()))
+       
