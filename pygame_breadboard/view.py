@@ -16,6 +16,7 @@ class View():
         #self.game_model = model.Model(960, 480)
         #self.view = View(self.game_model, 960, 480)
         #self.controller = Controller(self.game_model)
+
     def draw(self):
         """ Redraw the full game window """
         # get the new drawables
