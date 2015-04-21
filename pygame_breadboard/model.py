@@ -12,16 +12,17 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
-        self.nodes = []
-        self.connections = []
+        #self.view_update = 
+        #self.nodes = []
+        #self.connections = []
         self.pos = ()
+        self.components = []
+        
+
         #self.resistor = Resistor(self.pos, "r1")
         #self.view = View(self, 960, 480)
         #self.controller = Controller(self.game_model)
         #self.controller = Controller(self)
-
-   
-
            # pygame.mouse.get_pressed() == (1, 0, 0):
             #self.mouse_pressed = True
             #self.mouse_pressed = True
@@ -36,8 +37,45 @@ class Model():
         events = pygame.event.get()
         self.background.run()
 
-    
 
+    def run(self):
+        while True:
+            self.update()
+            self.get_drawables
+
+
+
+    def update(self):
+       """ updates all aspects of the game """
+       
+       for event in pygame.event.get():
+           if event.type == pygame.QUIT: sys.exit()
+           if event.type == pygame.MOUSEBUTTONDOWN:
+               mpos = pygame.mouse.get_pos() 
+               if self.state == 0:
+                   self.selected = "none"
+                   if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
+                        if mpos[1] < 225 and mpos[1] > 180:
+                            self.selected = "r1"
+                        elif mpos[1] < 270 and mpos[1] >225:
+                            self.selected = "r2"
+                        elif mpos[1] < 315 and mpos[1] > 270:
+                            self.selected = "c1"
+                        elif mpos[1] < 360 and mpos[1] > 315:
+                            self.selected = "c2"
+                        print self.selected
+                        self.state = 1
+               else: #self.state == 1
+                   #print self.selected
+                   if mpos[0] > 200:
+                       if self.state == 1:
+                           self.pos = mpos
+                           self.state = 0
+                           
+               print(self.states[self.state])
+               
+
+    
     def end_program(self):
     	"""ends the program"""
         for event in pygame.event.get():
@@ -50,11 +88,18 @@ class Model():
         return self.background.get_drawables()
 
 
+    def get_components(self):
+        """forms list of components"""
+        components = self.components
+        #component = 
+        pass
+
+
     def calculate_cutoff_frequencyLP(self):
         """calculates cut-off frequency of a passive low-pass filter"""
         """FOR LEVEL ONE"""
-
         pass
+
 
 class component():
     def __init__(self, pos, type, value):
@@ -71,66 +116,11 @@ class component():
         print self.pos
 
 
-#class Resistor():
+    def draw_block(self):
+        """gets the drawables for the component block"""
 
-#     def __init__(self, pos, r1):
-#         """ initializes a resistor """
-#         self.pos = pos
-#         self.r1 = r1
-#         self.image = pygame.image.load('images/Resistor.png')
-#         self.image = pygame.transform.scale(self.image, (120, 30))
-        
+        return DrawableSurface(self.image,pygame.Rect((self.pos),
+                                self.image.get_size()))
 
-#         print self.pos
-       
-#         print r1
-        
-#     def draw_block(self):
-#         """ gets the drawables for the circuit block """
-#         return DrawableSurface(self.image,pygame.Rect((self.pos1),
-#                                 self.image.get_size()))
-
-# class Capacitor():
-#     def __init__ (self, pos1, pos2, c1):
-#         """initializes a capacitor"""
-#         self.pos1 = pos1
-#         self.pos2 = pos2
-#         self.c1 = c1
-#         self.image = pygame.image.load('images/Capacitor.png')
-#         self.image = pygame.transform.scale(self.image, (120, 30))
-#         print self.pos1
-#         print self.pos2
-#         print c1
-        
-#     def draw_block(self):
-#         """ gets the drawables for the circuit block """
-#         return DrawableSurface(self.image,pygame.Rect((self.pos1),
-#                                 self.image.get_size()))
-
-# class HP_RC_filter():
-#     pass
-
-# class LP_RC_filter():
-#     pass
-
-# class DoubleResistor():
-#     """ represents a double resistor. Initialized with three positions and two 
-#     resistor values. """
-#     def __init__(self, pos1, pos2, pos3, r1, r2):
-#         """ initializes the double resistor """
-#         self.pos1 = pos1
-#         self.pos2 = pos2
-#         self.pos3 = pos3
-#         self.r1 = r1
-#         self.r2 = r2
-#         if pos1(0) == pos3(0) or pos1(1) == pos3(1):
-#             self.image = pygame.image.load('images/doubresist_straight')
-#         else:
-#             self.image = pygame.image.load('images/doubresist_bent')
-
-#     def draw_block(self):
-#         """ gets the drawables for the circuit block """
-#         return DrawableSurface(self.image,pygame.Rect((self.pos1),
-#                                 self.image.get_size()))
 
 
