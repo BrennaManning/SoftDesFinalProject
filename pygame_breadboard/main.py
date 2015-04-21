@@ -24,6 +24,25 @@ class pygameBreadboard():
             self.controller.process_events()
             self.game_model.update()
             pygame.display.update()
+            level =1
+            if level == 1:
+                self.view.draw()
+                self.controller.process_events()
+                self.game_model.update()
+                pygame.display.update()
+                k = pygame.key.get_pressed()
+                enter = k[pygame.K_RETURN]
+                if enter:
+                    level +=1
+            if level == 2: 
+                self.view.draw()
+                self.controller.process_events()
+                self.game_model.update()
+                pygame.display.update()
+                k = pygame.key.get_pressed()
+                enter = k[pygame.K_RETURN]
+                
+
 
 if __name__ == '__main__':
     board = pygameBreadboard()

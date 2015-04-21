@@ -52,34 +52,3 @@ class DrawableSurface():
     def get_rect(self):
         """ Get the rect """
         return self.rect
-
-
-# class Background(pygame.sprite.Sprite):
-#     """ Represents the background """
-#     def __init__(self):
-#         pygame.sprite.Sprite.__init__(self)
-#         self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
-#         # self.image = pygame.image.load('images/breadboard_background.jpg')
-#         self.image = pygame.transform.scale(self.image, (960,480))
-#         self.image.set_colorkey((255,255,255))
-
-#     def get_drawables(self):
-#         """ Gets the drawables for the background """
-#         return DrawableSurface(self.image,
-#                                 pygame.Rect((0,0), self.image.get_size()))
-
-# class Background(object):
-#     def __init__(self):
-#         self.screen = pygame.display.set_mode((400,200))
-#         self.state = 0
-#         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
-#         self.pos = (0,0)
-#         self.image = pygame.image.load('images/CircuitSimLevel1Background.png')
-#         self.image = pygame.transform.scale(self.image, (960,480))
-#         self.image.set_colorkey((255,255,255))
-#         self.selected = "none"
-
-#     def get_drawables(self):
-#         """Gets the drawables for the background"""
-#         return DrawableSurface(self.image,pygame.Rect((0,0), self.image.get_size()))
-       
