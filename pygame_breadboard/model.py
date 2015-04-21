@@ -12,6 +12,8 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
+
+        
         #self.view_update = 
         #self.nodes = []
         #self.connections = []
@@ -41,6 +43,39 @@ class Model():
             Background.get_drawables
             self.update_stuff()
 
+
+    # def get_component_type_and_value(self,spot):
+    #     """gets component type from update stuff"""
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT: sys.exit()
+    #         if event.type == pygame.MOUSEBUTTONDOWN:
+    #             mpos = pygame.mouse.get_pos() 
+    #             if self.state == 0:
+    #                 self.selected = "none"
+    #                 if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
+    #                     if mpos[1] < 225 and mpos[1] > 180:
+    #                         self.selected = "r1"
+    #                         self.value = "r1 value"
+    #                     elif mpos[1] < 270 and mpos[1] >225:
+    #                         self.selected = "r2"
+    #                         self.value = "r2 value"
+    #                     elif mpos[1] < 315 and mpos[1] > 270:
+    #                         self.selected = "c1"
+    #                         self.value = "c1 value"
+    #                     elif mpos[1] < 360 and mpos[1] > 315:
+    #                         self.selected = "c2"
+    #                         self.value = "c2 value"
+    #                     print self.selected
+    #                     self.define_type(self.selected)
+    #                     component_type = self.define_type(self.selected)
+    #                     self.define_value(self.value)
+    #                     component_value = self.define_value(self.value)
+    #                     self.spot = spot
+    #                     DrawComponent(spot, component_type)
+
+
+
+
     def update_stuff(self):
         """ updates all aspects of the game """
         for event in pygame.event.get():
@@ -64,19 +99,44 @@ class Model():
                             self.value = "c2 value"
                         print self.selected
                         self.define_type(self.selected)
+                        component_type = self.define_type(self.selected)
                         self.define_value(self.value)
-                        self.state = 1
+                        component_value = self.define_value(self.value)
+
+                        self.getspotcomponent(component_type, component_value)
+                        
                 else: #self.state == 1
                     #print self.selected
                     if mpos[0] > 200:
                         if self.state == 1:
                             self.pos = mpos
                             self.define_spot(self.pos)
+                            spot = self.define_spot(self.pos)
                             self.get_components
                             self.state = 0 
-                
+
                 print(self.states[self.state])
-                
+
+    def getspotcomponent(self, ctype, value):
+        self.state = 1
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mpos = pygame.mouse.get_pos() 
+
+                if mpos[0] > 200:
+                    if self.state == 1:
+                        self.pos = mpos
+                        self.define_spot(self.pos)
+                        spot = self.define_spot(self.pos)
+                        self.get_components
+                        self.component_type = ctype
+                        self.component_value = value
+                        print "DRAW!!"
+                        DrawComponent(spot, component_type, component_value)
+                        self.state = 0
+
+
     def define_spot(self,mpos):
         """ determines which specific spot had been clicked """
         mpos_coord = ((mpos[0] - 217)/95, (mpos[1] - 127)/95)
@@ -150,6 +210,7 @@ class Background(object):
     def get_drawables(self):
         """Gets the drawables for the background"""
         return DrawableSurface(self.image,pygame.Rect((0,0), self.image.get_size()))
+
 
 class component():
     def __init__(self, pos, type, value):

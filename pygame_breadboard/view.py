@@ -38,6 +38,34 @@ class View():
         self.c2_button = pygame.transform.scale(self.c2_button, (120, 30))
         self.screen.blit(self.c2_button, (60,330))
 
+
+class DrawComponent():
+    """A class that draws components in position"""
+    def __init__(self,spot,ctype):
+        """initializes the class"""
+        self.spot = spot
+        self.component_type = ctype
+
+        if self.component_type == "R":
+            self.image = pygame.image.load('images/Resistor.png')
+            self.image = pygame.transform.scale(self.image, (120, 30))
+        if self.component_type == "C":
+            self.image = pygame.image.load('images/Capacitor.png')
+            self.image = pygame.transform.scale(self.image, (120, 30))
+
+        if self.spot == 1:
+            self.pos = (500, 200)
+
+        if self.spot == 2:
+
+            self.pos = (700, 300)
+
+        return DrawableSurface(self.image,pygame.Rect((self.pos),
+                                self.image.get_size()))
+
+
+        pass
+
 class DrawableSurface():
     """ A class that wraps a pygame.Surface and a pygame.Rect """
     def __init__(self, surface, rect):
