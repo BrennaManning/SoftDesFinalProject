@@ -12,24 +12,9 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
-
-        
-        #self.view_update = 
-        #self.nodes = []
-        #self.connections = []
         self.pos = ()
         self.components = []
         
-        #self.resistor = Resistor(self.pos, "r1")
-        #self.view = View(self, 960, 480)
-        #self.controller = Controller(self.game_model)
-        #self.controller = Controller(self)
-           # pygame.mouse.get_pressed() == (1, 0, 0):
-            #self.mouse_pressed = True
-            #self.mouse_pressed = True
-            #self.resistor.pos = pygame.mouse.get_pos()
-            #self.resistor.draw_block
-
         self.state = 0
         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
 
@@ -42,7 +27,6 @@ class Model():
         while True:
             Background.get_drawables
             self.update_stuff()
-
 
     # def get_component_type_and_value(self,spot):
     #     """gets component type from update stuff"""
@@ -74,8 +58,6 @@ class Model():
     #                     DrawComponent(spot, component_type)
 
 
-
-
     def update_stuff(self):
         """ updates all aspects of the game """
         for event in pygame.event.get():
@@ -97,10 +79,10 @@ class Model():
                         elif mpos[1] < 360 and mpos[1] > 315:
                             self.selected = "c2"
                             self.value = "c2 value"
-                        print self.selected
-                        self.define_type(self.selected)
+                        #print self.selected
+                        
                         component_type = self.define_type(self.selected)
-                        self.define_value(self.value)
+                        
                         component_value = self.define_value(self.value)
 
                         self.getspotcomponent(component_type, component_value)
@@ -140,7 +122,7 @@ class Model():
     def define_spot(self,mpos):
         """ determines which specific spot had been clicked """
         mpos_coord = ((mpos[0] - 217)/95, (mpos[1] - 127)/95)
-        print mpos_coord
+       # print mpos_coord
         if mpos_coord == (1,0) or mpos_coord == (2,0):
             spot = "1"
             print spot
@@ -162,6 +144,7 @@ class Model():
     def define_value(self, value):
         """determines the value of the resistor or capacitor - returns a number"""
         component_value = value 
+
         print component_value
         return component_value
 
@@ -178,6 +161,9 @@ class Model():
 
     def get_components(self):
         """forms list of components"""
+
+        #This function is not currently being called
+        ######
         components = self.components
         spot = self.define_spot
         print spot + "get_components function"
@@ -188,7 +174,7 @@ class Model():
         component = [component_type, spot, value]
         components.append(component)
        
-        print components
+        #print components
 
 
     def calculate_cutoff_frequencyLP(self):
