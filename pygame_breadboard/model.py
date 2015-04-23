@@ -12,8 +12,8 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
- #       self.pos = ()
-#        self.components = []
+#       self.pos = ()
+#       self.components = []
         self.state = 0
         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
 
