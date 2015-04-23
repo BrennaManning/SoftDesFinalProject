@@ -4,7 +4,7 @@ import random
 from random import randint
 import time
 import pygame
-from model import Model
+from modelcopy import Model
 from view import *
 from controller import *
 

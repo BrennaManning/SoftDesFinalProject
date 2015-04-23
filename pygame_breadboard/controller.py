@@ -2,7 +2,7 @@ import random
 from random import randint
 import time
 import pygame
-from model import *
+from modelcopy import *
 from view import *
 
 class Controller():
