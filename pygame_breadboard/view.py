@@ -53,10 +53,10 @@ class DrawComponent():
             self.image = pygame.image.load('images/Capacitor.png')
             self.image = pygame.transform.scale(self.image, (120, 30))
 
-        if self.spot == 1:
+        if self.spot == "1":
             self.pos = (500, 200)
 
-        if self.spot == 2:
+        if self.spot == "2":
 
             self.pos = (700, 300)
 

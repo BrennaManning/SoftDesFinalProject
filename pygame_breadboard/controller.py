@@ -19,7 +19,6 @@ class Controller():
         
         # if pygame.event.type == pygame.MOUSEBUTTONDOWN:
             # pass
-
             # mpos = pygame.mouse.get_pos()
                 # if self.state = 0:
 
