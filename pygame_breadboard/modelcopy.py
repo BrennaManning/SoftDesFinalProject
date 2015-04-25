@@ -162,7 +162,7 @@ class Component():
         self.component_type = compList[0]
         self.component_spot = compList[2]
         self.component_value = compList[1]
-        self.draw_block()
+        
         #self.mpos2 = mpos2
         #self.spot = self.define_spot(self.mpos2)
 
@@ -173,10 +173,20 @@ class Component():
             self.image = pygame.image.load('images/Capacitor.png')
             self.image = pygame.transform.scale(self.image, (120, 30))
 
+        if self.component_spot == "1":
+            self.pos = (300,200)
+        if self.component_spot == "2":
+            self.pos = (500,500)
+
+        self.draw = self.draw_block()
+        self.draw
+
     def draw_block(self):
         """gets the drawables for the component block"""
         return DrawableSurface(self.image,pygame.Rect((self.pos),
                                 self.image.get_size()))
+
+
 
         # self.component = self.get_component()
 
