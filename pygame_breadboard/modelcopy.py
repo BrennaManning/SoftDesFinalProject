@@ -14,46 +14,42 @@ class Model():
         self.height = height
         self.background = Background()
         self.components = []
-        self.state = 0
-        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
+        # self.state = 0
+        # self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
 
     def update(self):
         """updates all aspects of the game"""
         events = pygame.event.get()
-        self.run()
+        Background.get_drawables
+        # self.update_components(events)
 
-    def run(self):
-        while True:
-            Background.get_drawables
-            self.update_components() 
+    # def update_components(self,events):
+    #     """ updates all aspects of the game """
+    #     for event in events:
+    #         if event.type == pygame.QUIT: sys.exit()
+    #         if event.type == pygame.MOUSEBUTTONDOWN:
+    #             mpos = pygame.mouse.get_pos() 
+    #             if self.state == 0:
+    #                 self.mpos1 = mpos
+    #                 self.mpos2 = (0,0)
+    #                 if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
+    #                     self.state = 1
+    #                 print(self.states[self.state])
+    #             else: #self.state == 1
+    #                 if mpos[0] > 200:
+    #                     if self.state == 1:
+    #                         self.mpos2 = mpos
+    #                         self.state = 0
+    #                         print(self.states[self.state])
+    #                         list_of_comp_values = [self.define_type(self.mpos1),
+    #                             self.define_value(self.mpos1),self.define_spot(self.mpos2)]
+    #                         print list_of_comp_values
+    #                         self.calculate_LP_cutoff(list_of_comp_values)
+    #                         self.calculate_LP_cutoff
 
-    def update_components(self):
-        """ updates all aspects of the game """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mpos = pygame.mouse.get_pos() 
-                if self.state == 0:
-                    self.mpos1 = mpos
-                    self.mpos2 = (0,0)
-                    if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
-                        self.state = 1
-                    print(self.states[self.state])
-                else: #self.state == 1
-                    if mpos[0] > 200:
-                        if self.state == 1:
-                            self.mpos2 = mpos
-                            self.state = 0
-                            print(self.states[self.state])
-                            list_of_comp_values = [self.define_type(self.mpos1),
-                                self.define_value(self.mpos1),self.define_spot(self.mpos2)]
-                            print list_of_comp_values
-                            self.calculate_LP_cutoff(list_of_comp_values)
-                            self.calculate_LP_cutoff
+    #                         self.components.append(Component(list_of_comp_values))
 
-                            self.components.append(Component(list_of_comp_values))
-
-    def calculate_LP_cutoff(self, complist):
+    def calculate_LP_cutoff(self, complist):    
         """calculates the cutoff frequency for a low pass filter"""
         self.type = complist[0]
         self.spot = complist[1]
@@ -82,15 +78,6 @@ class Model():
             LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
             print LP_cutoff_f
             return LP_cutoff_f
-
-
-
-
-
-
-
-
-
 
     def define_type(self, mpos):
         """determines what type of component is selected"""
@@ -164,8 +151,6 @@ class Model():
         if model_component[2] != None:
             components.append[component]
         #print model_components
-
-
    
 class Background(object):
     def __init__(self):
@@ -185,29 +170,45 @@ class Background(object):
 class Component():
     def __init__(self, compList):
         """initializes a component"""
-        self.component_type = compList[0]
-        self.component_spot = compList[2]
+        # self.component_type = compList[0]
+        self.image = self.component_type(compList[0])
         self.component_value = compList[1]
+        self.component_spot = compList[2]
+        # View.draw_component()
         
         #self.mpos2 = mpos2
         #self.spot = self.define_spot(self.mpos2)
 
-        if self.component_type == 'R':
+    def get_drawables(self):
+        """ gets a list of all enemy drawables"""
+        for component in self.components:
+            print "getting drawables"
+            return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
+                                        self.image.get_size()))
+
+    def component_type(self, comptype):
+        """ determines the component type based on the input """
+        if comptype == 'R':
             self.image = pygame.image.load('images/Resistor.png')
-            self.image = pygame.transform.scale(self.image, (120, 30))
-        if self.component_type == 'C':
+            return pygame.transform.scale(self.image, (120, 30))
+        if comptype == 'C':
             self.image = pygame.image.load('images/Capacitor.png')
-            self.image = pygame.transform.scale(self.image, (120, 30))
+            return pygame.transform.scale(self.image, (120, 30))
 
         if self.component_spot == "1":
             self.pos = (300,200)
         if self.component_spot == "2":
             self.pos = (500,500)
 
+    def spot_coords(self,spot):
+        """ given a designated spot, returns the necessary x,y values """
+        if spot == '1':
+            return (300,200) #not correct coordinates yet
+        if spot == '2':
+            return (500,500)
 
     def draw_block(self):
         """gets the drawables for the component block"""
-
         draw_component = DrawComponent(self.component_spot,self.component_type)
         return draw_component
         #return DrawableSurface(self.image,pygame.Rect((self.pos),
