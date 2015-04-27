@@ -2,9 +2,8 @@ import random
 from random import randint
 import time
 import pygame
-from modelcopy import *
-from view import *
-
+import modelcopy
+import view
 class Controller():
     def __init__(self, model):
 	""" the control class """
@@ -12,8 +11,7 @@ class Controller():
         self.game_model = model
         self.state = 0
         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
-
-        #self.view = View(self.game_model, 960, 480)
+        self.view = view.View(self.game_model, 960, 480)
 
     def process_events(self):
         """ process keyboard events. Function called periodically """
@@ -34,12 +32,19 @@ class Controller():
                             self.mpos2 = mpos
                             self.state = 0
                             print(self.states[self.state])
-                            list_of_comp_values = [self.game_model.define_type(self.mpos1),
+                            self.list_of_comp_values = [self.game_model.define_type(self.mpos1),
                                 self.game_model.define_value(self.mpos1),
                                 self.game_model.define_spot(self.mpos2)]
-                            print list_of_comp_values
-                            self.game_model.components.append(modelcopy.Component(list_of_comp_values))
+                            self.view.cutoff_frequency_text = self.game_model.cutoff_frequency_text
 
+                            print self.list_of_comp_values
+                            self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
+
+                            self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
+                            #print self.game_model.components
+                            #for component in self.game_model.components:
+                                #print modelcopy.Component(list_of_comp_values).component_value
+                               
         # if pygame.event.type == pygame.MOUSEBUTTONDOWN:
             # pass
             # mpos = pygame.mouse.get_pos()

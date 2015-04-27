@@ -13,7 +13,7 @@ class pygameBreadboard():
     """ The main class """
     def __init__(self):
         """ Initialize the board """
-        self.game_model = Model(960,480)
+        self.game_model = Model(960, 480)
         self.view = View(self.game_model, 960, 480)
         self.controller = Controller(self.game_model)
 

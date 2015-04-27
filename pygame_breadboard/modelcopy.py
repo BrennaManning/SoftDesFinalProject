@@ -14,6 +14,9 @@ class Model():
         self.height = height
         self.background = Background()
         self.components = []
+        self.r = 0
+        self.c = 0
+        self.cutoff_frequency_text = "?"
         # self.state = 0
         # self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
 
@@ -21,63 +24,43 @@ class Model():
         """updates all aspects of the game"""
         events = pygame.event.get()
         Background.get_drawables
-        # self.update_components(events)
-
-    # def update_components(self,events):
-    #     """ updates all aspects of the game """
-    #     for event in events:
-    #         if event.type == pygame.QUIT: sys.exit()
-    #         if event.type == pygame.MOUSEBUTTONDOWN:
-    #             mpos = pygame.mouse.get_pos() 
-    #             if self.state == 0:
-    #                 self.mpos1 = mpos
-    #                 self.mpos2 = (0,0)
-    #                 if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
-    #                     self.state = 1
-    #                 print(self.states[self.state])
-    #             else: #self.state == 1
-    #                 if mpos[0] > 200:
-    #                     if self.state == 1:
-    #                         self.mpos2 = mpos
-    #                         self.state = 0
-    #                         print(self.states[self.state])
-    #                         list_of_comp_values = [self.define_type(self.mpos1),
-    #                             self.define_value(self.mpos1),self.define_spot(self.mpos2)]
-    #                         print list_of_comp_values
-    #                         self.calculate_LP_cutoff(list_of_comp_values)
-    #                         self.calculate_LP_cutoff
-
-    #                         self.components.append(Component(list_of_comp_values))
+ 
 
     def calculate_LP_cutoff(self, complist):    
-        """calculates the cutoff frequency for a low pass filter"""
+        """calculates the cutoff frequency for a low pass filter"""\
+
         self.type = complist[0]
-        self.spot = complist[1]
-        self.value = complist[2]
-        self.r = 0
-        self.c = 0
-        fail = False
+        self.spot = complist[2]
+        self.value = complist[1]
+        self.fail = False
 
         if self.spot == "1":
+            
             if self.type == "R":
                 self.r = self.value
+                
             else:
-                fail = True
-            if fail:
+                self.fail = True
+            if self.fail == True:
                 print "Not a lowpass filter: try again"
 
         elif self.spot == "2":
+            
             if self.type == "C":
+                
                 self.c = self.value
             else:
-                fail = True
-            if fail:
+                self.fail = True
+            if self.fail:
                 print "Not a lowpass filter: try again"
 
-        if self.r != 0 and self.c != 0:
-            LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
-            print LP_cutoff_f
-            return LP_cutoff_f
+        if self.r == 100000 or self.r == 1000:
+            if self.c == float(0.0000026) or self.c == float(0.00001):
+                LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
+                self.cutoff_frequency_text = str(LP_cutoff_f)
+                print "Cut-Off Frequency = "
+                print LP_cutoff_f
+                return LP_cutoff_f
 
     def define_type(self, mpos):
         """determines what type of component is selected"""
@@ -86,17 +69,12 @@ class Model():
         if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
             if mpos[1] < 225 and mpos[1] > 180:
                 self.selected = "r1"
-                self.value = "r1 value"
             elif mpos[1] < 270 and mpos[1] >225:
                 self.selected = "r2"
-                self.value = "r2 value"
             elif mpos[1] < 315 and mpos[1] > 270:
                 self.selected = "c1"
-                self.value = "c1 value"
             elif mpos[1] < 360 and mpos[1] > 315:
                 self.selected = "c2"
-                self.value = "c2 value"
-            
             if self.selected == 'r1' or self.selected == 'r2':
                 component_type = "R" 
             if self.selected == 'c1' or self.selected == 'c2':
@@ -109,13 +87,13 @@ class Model():
         """determines what type of component is selected"""
         if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
             if mpos[1] < 225 and mpos[1] > 180:
-                self.value = "r1 value"
+                self.value = 100000
             elif mpos[1] < 270 and mpos[1] >225:
-                self.value = "r2 value"
+                self.value = 1000
             elif mpos[1] < 315 and mpos[1] > 270:
-                self.value = "c1 value"
+                self.value = float(0.0000026)
             elif mpos[1] < 360 and mpos[1] > 315:
-                self.value = "c2 value"
+                self.value = float(0.00001)
             
             component_value = self.value
             #print component_value
