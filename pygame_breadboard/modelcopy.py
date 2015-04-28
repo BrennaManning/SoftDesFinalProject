@@ -61,7 +61,7 @@ class Model():
                 print "Cut-Off Frequency = "
                 print LP_cutoff_f
                 self.cutoff_frequency_text = LP_cutoff_f
-                view.cutoff_frequency_text = LP_cutoff_f
+                View.cutoff_frequency_text = LP_cutoff_f
                 return LP_cutoff_f
 
     def define_type(self, mpos):
