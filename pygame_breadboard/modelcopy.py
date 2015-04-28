@@ -17,7 +17,7 @@ class Model():
         self.r = 0
         self.c = 0
         self.cutoff_frequency_text = "?"
-        view.cutoff_frequency_text = self.cutoff_frequency_text
+        
     
     def update(self):
         """updates all aspects of the game"""
@@ -61,6 +61,7 @@ class Model():
                 print "Cut-Off Frequency = "
                 print LP_cutoff_f
                 self.cutoff_frequency_text = LP_cutoff_f
+                view.cutoff_frequency_text = LP_cutoff_f
                 return LP_cutoff_f
 
     def define_type(self, mpos):
