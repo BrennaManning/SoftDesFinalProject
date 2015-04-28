@@ -17,9 +17,9 @@ class Model():
         self.r = 0
         self.c = 0
         self.cutoff_frequency_text = "?"
-        # self.state = 0
-        # self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
-
+        if self.cutoff_frequency_text != "?":
+            view.cutoff_frequency_text = self.cutoff_frequency_text
+    
     def update(self):
         """updates all aspects of the game"""
         events = pygame.event.get()
@@ -57,9 +57,11 @@ class Model():
         if self.r == 100000 or self.r == 1000:
             if self.c == float(0.0000026) or self.c == float(0.00001):
                 LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
-                self.cutoff_frequency_text = str(LP_cutoff_f)
+                #self.cutoff_frequency_text = str(LP_cutoff_f)
+                LP_cutoff_f = str(LP_cutoff_f)
                 print "Cut-Off Frequency = "
                 print LP_cutoff_f
+                self.cutoff_frequency_text = LP_cutoff_f
                 return LP_cutoff_f
 
     def define_type(self, mpos):
