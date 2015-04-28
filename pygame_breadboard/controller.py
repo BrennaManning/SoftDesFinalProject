@@ -35,7 +35,7 @@ class Controller():
                             self.list_of_comp_values = [self.game_model.define_type(self.mpos1),
                                 self.game_model.define_value(self.mpos1),
                                 self.game_model.define_spot(self.mpos2)]
-                            #self.view.cutoff_frequency_text = self.game_model.cutoff_frequency_text
+                            self.view.cutoff_frequency_text = self.game_model.cutoff_frequency_text
                             print self.view.cutoff_frequency_text
 
                             print self.list_of_comp_values
