@@ -57,6 +57,7 @@ class Model():
             if self.c == float(0.0000026) or self.c == float(0.00001):
                 LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
                 #self.cutoff_frequency_text = str(LP_cutoff_f)
+                LP_cutoff_f = int(LP_cutoff_f)
                 LP_cutoff_f = str(LP_cutoff_f)
                 print "Cut-Off Frequency = "
                 print LP_cutoff_f
