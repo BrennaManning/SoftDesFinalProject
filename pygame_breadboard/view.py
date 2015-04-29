@@ -52,7 +52,7 @@ class View():
         c2_label = self.myfont.render("10 uF C", 1, (0,0,0))
         self.screen.blit(c2_label, (70, 365))
        
-        COF_Text = self.myfont.render(self.cutoff_frequency_text, 1, (0,0,0))
+        COF_Text = self.myfont.render(self.game_model.cutoff_frequency_text, 1, (0,0,0))   
         self.screen.blit(COF_Text, (855, 302))
         V_Text = self.myfont.render(self.V_text, 1, (0,0,0))
         self.screen.blit(V_Text, (855, 192))
