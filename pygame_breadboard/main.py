@@ -20,13 +20,15 @@ class pygameBreadboard():
     def run(self):
         """ the main runloop """
         self.level = 1
+        quit = False
         if self.level == 1:
-            while not(self.game_model1.end_program()):
+            while not quit:
+                events = pygame.event.get()
                 self.view1.draw()
-                self.controller1.process_events()
-                self.game_model1.update()
+                self.controller1.process_events(events)
+                self.game_model1.update(events)
                 pygame.display.update()
-    
+                quit = self.game_model1.end_program(events)
 
 if __name__ == '__main__':
     board = pygameBreadboard()

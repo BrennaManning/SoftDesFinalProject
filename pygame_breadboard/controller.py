@@ -1,4 +1,3 @@
-import random
 from random import randint
 import time
 import pygame
@@ -13,13 +12,14 @@ class Controller():
         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
         self.view = view.View(self.game_model, 960, 480)
 
-    def process_events(self):
+    def process_events(self,events):
         """ process keyboard events. Function called periodically """
-        pygame.event.pump()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mpos = pygame.mouse.get_pos() 
+        # pygame.event.get()
+        for event in events:
+            # print event
+            # if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.MOUSEBUTTONUP:
+                mpos = pygame.mouse.get_pos()
                 if self.state == 0:
                     self.mpos1 = mpos
                     self.mpos2 = (0,0)
@@ -38,10 +38,12 @@ class Controller():
                             self.view.cutoff_frequency_text = self.game_model.cutoff_frequency_text
                             print self.view.cutoff_frequency_text
 
-                            print self.list_of_comp_values
+                            # print self.list_of_comp_values
                             self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
 
                             self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
+                            # self.game_model.get_component_drawables(self.list_of_comp_values)
+
                             #print self.game_model.components
                             #for component in self.game_model.components:
                                 #print modelcopy.Component(list_of_comp_values).component_value

@@ -22,8 +22,9 @@ class View():
         self.V_text = "?"
       
         self.cutoff_frequency_text = self.game_model.cutoff_frequency_text
+        self.draw_background()
 
-    def draw(self):
+    def draw_background(self):
         """ Redraw the full game window """
         # get the new drawables
         d = self.game_model.get_background_drawables()
@@ -59,8 +60,16 @@ class View():
         V_Text = self.myfont.render(self.V_text, 1, (0,0,0))
         self.screen.blit(V_Text, (855, 192))
 
-       
-
+    def draw(self):
+        """redraw everything"""
+        pass
+        # if len (self.game_model.components) > 0:
+        #     self.drawable_blocks = (self.game_model.get_component_drawables())
+        #     for block in self.drawable_blocks:
+        #         rect = d.get_rect()
+        #         surf = d.get_surface()
+        #         surf.set_colorkey((255,255,255))
+        #         self.screen.blit(surf, rect)
 
 class DrawComponent():
     """A class that draws components in position"""
@@ -78,11 +87,9 @@ class DrawComponent():
 
         if self.spot == "1":
             self.pos = (500, 200)
-
         if self.spot == "2":
-
             self.pos = (700, 300)
-
+        
         return DrawableSurface(self.image,pygame.Rect((self.pos),
                                 self.image.get_size()))
 
