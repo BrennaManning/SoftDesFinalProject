@@ -19,7 +19,7 @@ class View():
         #self.controller = Controller(self.game_model)
         pygame.font.init()
         self.myfont = pygame.font.SysFont("monospace", 15)
-        self.V_text = "?"
+        self.V_text = "5"
       
         self.cutoff_frequency_text = self.game_model.cutoff_frequency_text
         self.draw_background()
