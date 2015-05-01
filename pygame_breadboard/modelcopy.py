@@ -2,7 +2,7 @@ import random
 from random import randint
 import time
 import pygame
-import view
+from view import *
 from controller import *
 from math import pi
 
@@ -13,17 +13,19 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
-        self.component = ()
         self.components = []
         self.r = 0
         self.c = 0
         self.cutoff_frequency_text = "?"
+        self.level = 1
+        
     
-    def update(self,events):
+    def update(self):
         """updates all aspects of the game"""
-        # events = events
+        events = pygame.event.get()
         Background.get_drawables
  
+
     def calculate_LP_cutoff(self, complist):    
         """calculates the cutoff frequency for a low pass filter"""\
 
@@ -63,6 +65,12 @@ class Model():
                 self.cutoff_frequency_text = LP_cutoff_f
                 View.cutoff_frequency_text = LP_cutoff_f
                 return LP_cutoff_f
+                if LP_cutoff_f == "61":
+                    pygame.time.wait(2000)
+                    self.level = 2
+
+
+
 
     def define_type(self, mpos):
         """determines what type of component is selected"""
@@ -112,19 +120,15 @@ class Model():
             spot = "2"           
             return spot
     
-    def end_program(self, events):
-    	"""ends the program"""
-        for event in events:
+    def end_program(self):
+        """ends the program"""
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return True    	
+                pygame.quit()       
 
     def get_background_drawables(self):
         """ Return a list of DrawableSurfaces for the model """
         return self.background.get_drawables()
-
-    def get_component_drawables(self):
-        """ return a list of Drawable Surfaces for the view """
-        return self.component.get_drawables
 
     def model_get_components(self,mpos1,mpos2):
         """forms list of components in model class"""
@@ -136,21 +140,6 @@ class Model():
             components.append[component]
         #print model_components
    
-class DrawableSurface():
-    """ A class that wraps a pygame.Surface and a pygame.Rect """
-    def __init__(self, surface, rect):
-        """ Initialize the drawable surface """
-        self.surface = surface
-        self.rect = rect
-
-    def get_surface(self):
-        """ Get the surface """
-        return self.surface
-
-    def get_rect(self):
-        """ Get the rect """
-        return self.rect
-
 class Background(object):
     def __init__(self):
         self.screen = pygame.display.set_mode((400,200))
@@ -166,24 +155,23 @@ class Background(object):
         """Gets the drawables for the background"""
         return DrawableSurface(self.image,pygame.Rect((0,0), self.image.get_size()))
 
-class Component(object):
+class Component():
     def __init__(self, compList):
         """initializes a component"""
         # self.component_type = compList[0]
         self.image = self.component_type(compList[0])
         self.component_value = compList[1]
         self.component_spot = compList[2]
-        self.get_drawables()
-
+        # View.draw_component()
+        
         #self.mpos2 = mpos2
         #self.spot = self.define_spot(self.mpos2)
 
     def get_drawables(self):
         """ gets a list of all enemy drawables"""
-        # for c in self.components:
-        # print "getting drawables"
-        
-        return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
+        for component in self.components:
+            print "getting drawables"
+            return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
                                         self.image.get_size()))
 
     def component_type(self, comptype):
@@ -195,10 +183,10 @@ class Component(object):
             self.image = pygame.image.load('images/Capacitor.png')
             return pygame.transform.scale(self.image, (120, 30))
 
-        # if self.component_spot == "1":
-        #     self.pos = (300,200)
-        # if self.component_spot == "2":
-        #     self.pos = (500,500)
+        if self.component_spot == "1":
+            self.pos = (300,200)
+        if self.component_spot == "2":
+            self.pos = (500,500)
 
     def spot_coords(self,spot):
         """ given a designated spot, returns the necessary x,y values """
