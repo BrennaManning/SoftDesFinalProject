@@ -13,16 +13,17 @@ class Model():
         self.width = width
         self.height = height
         self.background = Background()
-        self.components = []
+        self.component_list = []
         self.r = 0
         self.c = 0
         self.cutoff_frequency_text = "?"
         self.level = 1
         
     
-    def update(self):
+    def update(self,events):
         """updates all aspects of the game"""
-        events = pygame.event.get()
+        # pass
+        events = events #pygame.event.get()
         Background.get_drawables
  
 
@@ -120,15 +121,11 @@ class Model():
             spot = "2"           
             return spot
     
-    def end_program(self):
+    def end_program(self,events):
         """ends the program"""
-        for event in pygame.event.get():
+        for event in events:
             if event.type == pygame.QUIT:
-                pygame.quit()       
-
-    def get_background_drawables(self):
-        """ Return a list of DrawableSurfaces for the model """
-        return self.background.get_drawables()
+                return True
 
     def model_get_components(self,mpos1,mpos2):
         """forms list of components in model class"""
@@ -137,8 +134,40 @@ class Model():
         model_component = Component(mpos1,mpos2).get_component
         #print model_component
         if model_component[2] != None:
-            components.append[component]
+            component_list.append[component]
         #print model_components
+
+    def get_all_drawables(self):
+        """ gets all drawables from various places """   
+        drawables = []
+        if len(self.component_list) > 0:
+            drawables.append(self.get_components_drawables())
+        return drawables
+
+    def get_background_drawables(self):
+        """ Return a list of DrawableSurfaces for the model """
+        return self.background.get_drawables()
+
+    def get_components_drawables(self):
+        """ return a list of Drawable Surfaces for the view """
+        for c in self.component_list:
+            print c
+            return c.get_drawables()
+
+class DrawableSurface():
+    """ A class that wraps a pygame.Surface and a pygame.Rect """
+    def __init__(self, surface, rect):
+        """ Initialize the drawable surface """
+        self.surface = surface
+        self.rect = rect
+
+    def get_surface(self):
+        """ Get the surface """
+        return self.surface
+
+    def get_rect(self):
+        """ Get the rect """
+        return self.rect
    
 class Background(object):
     def __init__(self):
@@ -169,9 +198,10 @@ class Component():
 
     def get_drawables(self):
         """ gets a list of all enemy drawables"""
-        for component in self.components:
-            print "getting drawables"
-            return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
+        # for c in self.components:
+        # print "getting drawables"
+        
+        return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
                                         self.image.get_size()))
 
     def component_type(self, comptype):

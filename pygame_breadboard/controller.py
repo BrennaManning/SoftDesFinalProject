@@ -16,11 +16,11 @@ class Controller():
         self.level = 1
 
 
-    def process_events(self):
+    def process_events(self,events):
         """ process keyboard events. Function called periodically """
         pygame.event.pump()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
+        for event in events:
+            # if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mpos = pygame.mouse.get_pos() 
                 if self.state == 0:
@@ -43,7 +43,7 @@ class Controller():
                             
                             print self.list_of_comp_values
                             self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
-                            self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
+                            self.game_model.component_list.append(modelcopy.Component(self.list_of_comp_values))
                             
                             if self.game_model.cutoff_frequency_text == "61":
                                 pygame.time.wait(5000)

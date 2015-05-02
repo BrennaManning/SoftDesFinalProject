@@ -7,8 +7,8 @@ import pygame
 import modelcopy
 from view import *
 from controller import *
-import modelcopy2
-import controller2
+# import modelcopy2
+# import controller2
 
 
 class pygameBreadboard():
@@ -18,31 +18,32 @@ class pygameBreadboard():
         self.game_model1 = modelcopy.Model(960, 480)
         self.view1 = View(self.game_model1, 960, 480)
         self.controller1 = Controller(self.game_model1)
-        self.game_model2 = modelcopy2.Model2(960, 480)
-        self.view2 = View(self.game_model2, 960, 480)
-        self.controller2 = controller2.Controller(self.game_model2)
+        # self.game_model2 = modelcopy2.Model2(960, 480)
+        # self.view2 = View(self.game_model2, 960, 480)
+        # self.controller2 = controller2.Controller(self.game_model2)
         self.level = 1
 
 
     def run(self):
         """ the main runloop """
-        
-    
-        while not(self.game_model1.end_program()):
+        quit = False
+        while not quit:
+            events = pygame.event.get()
             if self.level == 1:
                 self.view1.draw()
-                self.controller1.process_events()
-                self.game_model1.update()
+                self.controller1.process_events(events)
+                self.game_model1.update(events)
                 pygame.display.update()
-                self.level = self.controller1.level
+                quit = self.game_model1.end_program(events)
+                # self.level = self.controller1.level
             
                 
-            elif self.level == 2:
-                self.view2.draw()
-                self.controller2.process_events()
-                self.game_model2.update()
-                pygame.display.update()
-                self.level = self.controller2.level
+            # elif self.level == 2:
+                # self.view2.draw()
+                # self.controller2.process_events()
+                # self.game_model2.update()
+                # pygame.display.update()
+                # self.level = self.controller2.level
 
     
 if __name__ == '__main__':
