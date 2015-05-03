@@ -25,13 +25,16 @@ class pygameBreadboard():
 
     def run(self):
         """ the main runloop """
-        
-        while not(self.game_model1.end_program()):
+
+        quit = False
+        while not quit:
+            events = pygame.event.get()
             if self.level == 1:
                 self.view1.draw()
-                self.controller1.process_events()
-                self.game_model1.update()
+                self.controller1.process_events(events)
+                self.game_model1.update(events)
                 pygame.display.update()
+                quit = pygame.display.update()
                 self.level = self.controller1.level
             
                 
@@ -41,6 +44,8 @@ class pygameBreadboard():
                 self.game_model2.update()
                 pygame.display.update()
                 self.level = self.controller2.level
+
+
 
     
 if __name__ == '__main__':

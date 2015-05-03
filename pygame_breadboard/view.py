@@ -59,8 +59,12 @@ class View():
         V_Text = self.myfont.render(self.V_text, 1, (0,0,0))
         self.screen.blit(V_Text, (855, 192))
 
-       
-
+        drawables = self.game_model.get_all_drawables() 
+        for d in drawables:
+            rect = d.get_rect()
+            surf = d.get_surface()
+            surf.set_colorkey((255,255,255))
+            self.screen.blit(surf, rect)
 
 class DrawComponent():
     """A class that draws components in position"""
