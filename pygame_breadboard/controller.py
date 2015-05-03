@@ -15,7 +15,6 @@ class Controller():
         self.view = view.View(self.game_model, 960, 480)
         self.level = 1
 
-
     def process_events(self):
         """ process keyboard events. Function called periodically """
         pygame.event.pump()

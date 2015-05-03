@@ -10,7 +10,6 @@ from controller import *
 import modelcopy2
 import controller2
 
-
 class pygameBreadboard():
     """ The main class """
     def __init__(self):
@@ -27,7 +26,6 @@ class pygameBreadboard():
     def run(self):
         """ the main runloop """
         
-    
         while not(self.game_model1.end_program()):
             if self.level == 1:
                 self.view1.draw()
