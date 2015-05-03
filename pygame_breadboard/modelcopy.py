@@ -18,6 +18,7 @@ class Model():
         self.c = 0
         self.cutoff_frequency_text = "?"
         self.level = 1
+        self.drawables = []
         
     
     def update(self,events):
@@ -141,7 +142,8 @@ class Model():
         """ gets all drawables from various places """   
         drawables = []
         if len(self.component_list) > 0:
-            drawables.append(self.get_components_drawables())
+            for c in self.component_list:
+                drawables.append(c.get_drawables())
         return drawables
 
     def get_background_drawables(self):
@@ -150,8 +152,9 @@ class Model():
 
     def get_components_drawables(self):
         """ return a list of Drawable Surfaces for the view """
+        # print self.component_list
+        print len(self.component_list)
         for c in self.component_list:
-            print c
             return c.get_drawables()
 
 class DrawableSurface():
@@ -188,9 +191,9 @@ class Component():
     def __init__(self, compList):
         """initializes a component"""
         # self.component_type = compList[0]
-        self.image = self.component_type(compList[0])
         self.component_value = compList[1]
         self.component_spot = compList[2]
+        self.image = self.component_type(self.component_spot, compList[0])
         # View.draw_component()
         
         #self.mpos2 = mpos2
@@ -198,32 +201,29 @@ class Component():
 
     def get_drawables(self):
         """ gets a list of all enemy drawables"""
-        # for c in self.components:
-        # print "getting drawables"
-        
-        return DrawableSurface(self.image, pygame.Rect(self.spot_coords(self.component_spot),
+        # print self.spot_coords(self.component_spot)
+        return DrawableSurface(self.image, pygame.Rect(
+                                        (self.spot_coords(self.component_spot)),
                                         self.image.get_size()))
 
-    def component_type(self, comptype):
+    def component_type(self, spot, comptype):
         """ determines the component type based on the input """
         if comptype == 'R':
             self.image = pygame.image.load('images/Resistor.png')
-            return pygame.transform.scale(self.image, (120, 30))
-        if comptype == 'C':
+            self.image = pygame.transform.scale(self.image, (120, 30))
+        elif comptype == 'C':
             self.image = pygame.image.load('images/Capacitor.png')
-            return pygame.transform.scale(self.image, (120, 30))
-
-        if self.component_spot == "1":
-            self.pos = (300,200)
-        if self.component_spot == "2":
-            self.pos = (500,500)
+            self.image = pygame.transform.scale(self.image, (120, 30))
+        if spot == '2':
+            self.image = pygame.transform.rotate(self.image, 90)
+        return self.image
 
     def spot_coords(self,spot):
         """ given a designated spot, returns the necessary x,y values """
         if spot == '1':
-            return (300,200) #not correct coordinates yet
+            return (408 - 60 ,175 - 15)
         if spot == '2':
-            return (500,500)
+            return (555 - 15,310 - 60)
 
     def draw_block(self):
         """gets the drawables for the component block"""
