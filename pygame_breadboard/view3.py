@@ -34,22 +34,22 @@ class View3():
         self.r1_button = pygame.image.load('images/Resistor.png')
         self.r1_button = pygame.transform.scale(self.r1_button, (120, 30))
         self.screen.blit(self.r1_button,(60,180))
-        r1_label = self.myfont.render("100k ohm R", 1, (0,0,0))
+        r1_label = self.myfont.render("3.39 k ohm R", 1, (0,0,0))
         self.screen.blit(r1_label, (70, 215))
         self.r2_button = pygame.image.load('images/Resistor.png')
         self.r2_button = pygame.transform.scale(self.r2_button, (120, 30))
         self.screen.blit(self.r2_button,(60,230))
-        r2_label = self.myfont.render("1k ohm R", 1, (0,0,0))
+        r2_label = self.myfont.render("16.9 k ohm R", 1, (0,0,0))
         self.screen.blit(r2_label, (70, 265))
         self.c1_button = pygame.image.load('images/Capacitor.png')
         self.c1_button = pygame.transform.scale(self.c1_button, (120, 30))
         self.screen.blit(self.c1_button, (60,280))
-        c1_label = self.myfont.render("2.6 uF C", 1, (0,0,0))
+        c1_label = self.myfont.render("0.47 nF C", 1, (0,0,0))
         self.screen.blit(c1_label, (70, 315))
         self.c2_button = pygame.image.load('images/Capacitor.png')
         self.c2_button = pygame.transform.scale(self.c2_button, (120, 30))
         self.screen.blit(self.c2_button, (60,330))
-        c2_label = self.myfont.render("10 uF C", 1, (0,0,0))
+        c2_label = self.myfont.render("0.047 nF C", 1, (0,0,0))
         self.screen.blit(c2_label, (70, 365))
        
         COF_Text_High = self.myfont.render(self.game_model.cutoff_frequency_high, 1, (0,0,0))   
@@ -57,8 +57,9 @@ class View3():
 
         COF_Text_Low = self.myfont.render(self.game_model.cutoff_frequency_low, 1, (0,0,0))   
         self.screen.blit(COF_Text_Low, (855, 302))
+
        
-        V_Text = self.myfont.render(self.V_text, 1, (0,0,0))
+        V_Text = self.myfont.render(self.game_model.voltage, 1, (0,0,0))
         self.screen.blit(V_Text, (855, 192))
 
         drawables = self.game_model.get_all_drawables() 

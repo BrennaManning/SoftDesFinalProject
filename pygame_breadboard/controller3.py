@@ -42,10 +42,10 @@ class Controller():
                             print self.list_of_comp_values
                             self.game_model.calculate_bandwidth(self.list_of_comp_values)
                             self.game_model.component_list.append(modelcopy3.Component(self.list_of_comp_values))
-                            if len(self.game_model.component_list) > 3:
-                                self.state = 2
-                            else:
-                                self.state = 0
+                            #if len(self.game_model.component_list) > 3:
+                             #   self.state = 2
+                            #else:
+                            self.state = 0
                 elif self.state == 2:
                     #STATE: NEXT LEVEL
                     self.level = 3

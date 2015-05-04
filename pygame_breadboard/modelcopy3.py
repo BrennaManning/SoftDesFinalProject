@@ -22,6 +22,7 @@ class Model3():
         self.cutoff_frequency_high = "?"
         self.level = 1
         self.drawables = []
+        self.voltage = "?"
 
     def update(self, events):
         """updates all aspects of the game"""
@@ -38,7 +39,7 @@ class Model3():
         self.fail = False
 
         if self.spot == "1" or self.spot == "2":
-            print "Calculation if Loop"
+            print "Calculation if Loop 1st filter"
             if self.type == "C":
                 if self.c1 == 0:
                     self.c1 = self.value
@@ -50,32 +51,54 @@ class Model3():
                 else:
                     self.fail = True
         
-            if self.fail == True:
-                print "Try again"
+    
 
-        #elif self.spot == "2":
-            
-           # if self.type == "R":
-                
-            #    self.r = self.value
-           # else:
-            #    self.fail = True
-            #if self.fail:
-             #   print "Not a lowpass filter: try again"
 
-        if self.r == 100000 or self.r == 1000:
-            if self.c == float(0.0000026) or self.c == float(0.00001):
-                LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
+        if self.spot == "3" or self.spot == "4":
+            print "calculation if loop 2nd filter"
+            if self.type == "C":
+                if self.c2 == 0:
+                    self.c2 = self.value
+                else:
+                    self.fail = True
+            else: #self.type == "R"
+                if self.r2 == 0:
+                    self.r2 = self.value
+                else:
+                    self.fail = True
+
+        if self.fail:
+            print "Try Again"
+
+
+        if self.c1 != 0 and self.c2 != 0 and self.r1 != 0 and self.r2 != 0:
+            cf_low = int((1/(2*pi*(self.r1)*(self.c1))/1000))
+            cf_low = str(cf_low)
+            self.cutoff_frequency_low = cf_low + "K"
+            print self.cutoff_frequency_low
+            cf_high = int((1/(2*pi*(self.r2)*(self.c2))/1000))
+            cf_high = str(cf_high)
+            self.cutoff_frequency_high = cf_high + "K"
+            print self.cutoff_frequency_high
+            voltage_change = float((self.r2)/self.r1)
+            voltage = 5 + voltage_change
+            self.voltage = str(voltage)
+            print self.voltage
+
+
+        #if self.r == 100000 or self.r == 1000:
+         #   if self.c == float(0.0000026) or self.c == float(0.00001):
+          #      LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
                 #self.cutoff_frequency_text = str(LP_cutoff_f)
-                LP_cutoff_f = int(LP_cutoff_f)
-                LP_cutoff_f = str(LP_cutoff_f)
-                print "Cut-Off Frequency = "
-                print LP_cutoff_f
-                self.cutoff_frequency_text = LP_cutoff_f
-                return LP_cutoff_f
-                if LP_cutoff_f == "61":
-                    pygame.time.wait(2000)
-                    self.level = 2
+           #     LP_cutoff_f = int(LP_cutoff_f)
+            #    LP_cutoff_f = str(LP_cutoff_f)
+             #   print "Cut-Off Frequency = "
+              #  print LP_cutoff_f
+               # self.cutoff_frequency_text = LP_cutoff_f
+                #return LP_cutoff_f
+                #f LP_cutoff_f == "61":
+                  #  pygame.time.wait(2000)
+                   # self.level = 2
 
 
 
@@ -105,17 +128,17 @@ class Model3():
         """determines what type of component is selected"""
         if mpos[0] > 60 and mpos[0] < 180 and mpos[1] > 180 and mpos [1] < 360:
             if mpos[1] < 225 and mpos[1] > 180:
-                self.value = 100000
+                self.value = 3390 #3.39k ohm
             elif mpos[1] < 270 and mpos[1] >225:
-                self.value = 1000
+                self.value = 16900 #16.9 k ohm
             elif mpos[1] < 315 and mpos[1] > 270:
-                self.value = float(0.0000026)
+                self.value = float(0.00000000047)
             elif mpos[1] < 360 and mpos[1] > 315:
-                self.value = float(0.00001)
+                self.value = float(0.000000000047)
             
             component_value = self.value
             #print component_value
-            modelcopy.state = 1
+            
             return component_value
 
     def define_spot(self,mpos):
@@ -143,8 +166,7 @@ class Model3():
 
     def model_get_components(self,mpos1,mpos2):
         """forms list of components in model class"""
-        print "HELLOOO???"
-
+        
         model_component = Component(mpos1,mpos2).get_component
         #print model_component
         if model_component[2] != None:
