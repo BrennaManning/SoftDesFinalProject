@@ -14,9 +14,12 @@ class Model3():
         self.height = height
         self.background = Background()
         self.component_list = []
-        self.r = 0
-        self.c = 0
-        self.cutoff_frequency_text = "?"
+        self.r1 = 0
+        self.c1 = 0
+        self.r2 = 0
+        self.c2 = 0
+        self.cutoff_frequency_low = "?"
+        self.cutoff_frequency_high = "?"
         self.level = 1
         self.drawables = []
 
@@ -34,25 +37,31 @@ class Model3():
         self.value = complist[1]
         self.fail = False
 
-        if self.spot == "1":
-            
+        if self.spot == "1" or self.spot == "2":
+            print "Calculation if Loop"
             if self.type == "C":
-                self.c = self.value
-                
-            else:
-                self.fail = True
+                if self.c1 == 0:
+                    self.c1 = self.value
+                else:
+                    self.fail = True
+            else: # if self.type == "R"
+                if self.r1 == 0:
+                    self.r1 = self.value
+                else:
+                    self.fail = True
+        
             if self.fail == True:
-                print "Not a lowpass filter: try again"
+                print "Try again"
 
-        elif self.spot == "2":
+        #elif self.spot == "2":
             
-            if self.type == "R":
+           # if self.type == "R":
                 
-                self.r = self.value
-            else:
-                self.fail = True
-            if self.fail:
-                print "Not a lowpass filter: try again"
+            #    self.r = self.value
+           # else:
+            #    self.fail = True
+            #if self.fail:
+             #   print "Not a lowpass filter: try again"
 
         if self.r == 100000 or self.r == 1000:
             if self.c == float(0.0000026) or self.c == float(0.00001):
@@ -67,6 +76,9 @@ class Model3():
                 if LP_cutoff_f == "61":
                     pygame.time.wait(2000)
                     self.level = 2
+
+
+
 
     def define_type(self, mpos):
         """determines what type of component is selected"""

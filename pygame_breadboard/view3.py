@@ -21,7 +21,7 @@ class View3():
         self.myfont = pygame.font.SysFont("monospace", 15)
         self.V_text = "?"
       
-        self.cutoff_frequency_text = self.game_model.cutoff_frequency_text
+        #self.cutoff_frequency_text = self.game_model.cutoff_frequency_text
 
     def draw(self):
         """ Redraw the full game window """
@@ -52,10 +52,12 @@ class View3():
         c2_label = self.myfont.render("10 uF C", 1, (0,0,0))
         self.screen.blit(c2_label, (70, 365))
        
-        COF_Text = self.myfont.render(self.game_model.cutoff_frequency_text, 1, (0,0,0))   
-        self.screen.blit(COF_Text, (855, 302))
-        if COF_Text != "?":
-            self.V_text =  "5"
+        COF_Text_High = self.myfont.render(self.game_model.cutoff_frequency_high, 1, (0,0,0))   
+        self.screen.blit(COF_Text_High, (855, 302))
+
+        COF_Text_Low = self.myfont.render(self.game_model.cutoff_frequency_low, 1, (0,0,0))   
+        self.screen.blit(COF_Text_Low, (855, 302))
+       
         V_Text = self.myfont.render(self.V_text, 1, (0,0,0))
         self.screen.blit(V_Text, (855, 192))
 
