@@ -2,25 +2,22 @@ import random
 from random import randint
 import time
 import pygame
-import modelcopy
-import view
-
+import modelcopy3
 
 class Controller():
     def __init__(self, model):
 	""" the control class """
+        #self.game_model = model.Model(960, 480)
         self.game_model = model
         self.state = 0
         self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
-        self.level = 1
+        self.level = 3
 
     def process_events(self, events):
-
         """ process keyboard events. Function called periodically """
         pygame.event.pump()
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-            # if pygame.mouse.get_pressed == (1,0,0):
                 mpos = pygame.mouse.get_pos() 
                 #Gets mouse position
                 if self.state == 0:
@@ -35,24 +32,21 @@ class Controller():
                     if mpos[0] > 200:
                         if self.state == 1:
                             self.mpos2 = mpos
+                            print self.game_model.define_spot(self.mpos2)
 
                             print(self.states[self.state])
                             self.list_of_comp_values = [self.game_model.define_type(self.mpos1),
                                 self.game_model.define_value(self.mpos1),
-                                self.game_model.define_spot(self.mpos2)]                            
-                            # print self.list_of_comp_values
-                            self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
-                            self.game_model.component_list.append(modelcopy.Component(self.list_of_comp_values))
-                           # self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
-                            if len(self.game_model.component_list) > 1:
+                                self.game_model.define_spot(self.mpos2)]
+
+                            print self.list_of_comp_values
+                            self.game_model.calculate_bandwidth(self.list_of_comp_values)
+                            self.game_model.component_list.append(modelcopy3.Component(self.list_of_comp_values))
+                            if len(self.game_model.component_list) > 3:
                                 self.state = 2
                             else:
                                 self.state = 0
                 elif self.state == 2:
                     #STATE: NEXT LEVEL
-                    self.level = 2
-            # if pygame.mouse.get_pressed == (0,1,0):
-            #     if self.state > 0:
-            #         self.state -=1
-
-
+                    self.level = 3
+                    print "LEVEL 3 ACHIEVED"
