@@ -122,11 +122,11 @@ class Model():
             spot = "2"           
             return spot
     
-    def end_program(self):
+    def end_program(self, events):
         """ends the program"""
-        for event in pygame.event.get():
+        for event in events:
             if event.type == pygame.QUIT:
-                pygame.quit()
+                return True
 
 
 

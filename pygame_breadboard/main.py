@@ -34,17 +34,18 @@ class pygameBreadboard():
                 self.controller1.process_events(events)
                 self.game_model1.update(events)
                 pygame.display.update()
-                quit = pygame.display.update()
                 self.level = self.controller1.level
+                quit = self.game_model1.end_program(events)
             
                 
             elif self.level == 2:
                 self.view2.draw()
-                self.controller2.process_events()
-                self.game_model2.update()
+                self.controller2.process_events(events)
+                self.game_model2.update(events)
                 pygame.display.update()
                 self.level = self.controller2.level
-
+                quit = self.game_model2.end_program(events)
+            
 
 
     

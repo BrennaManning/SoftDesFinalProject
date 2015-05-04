@@ -2,7 +2,8 @@ import random
 from random import randint
 import time
 import pygame
-import modelcopy
+#import modelcopy
+import modelcopy2
 import view
 
 class Controller():
@@ -15,11 +16,10 @@ class Controller():
         self.view = view.View(self.game_model, 960, 480)
         self.level = 2
 
-    def process_events(self):
+    def process_events(self, events):
         """ process keyboard events. Function called periodically """
         pygame.event.pump()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
+        for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mpos = pygame.mouse.get_pos() 
                 if self.state == 0:
@@ -41,7 +41,8 @@ class Controller():
                             print self.view.cutoff_frequency_text
                             print self.list_of_comp_values
                             self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
-                            self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
+                            
+                            self.game_model.component_list.append(modelcopy2.Component(self.list_of_comp_values))
                             #print self.game_model.components
                             #for component in self.game_model.components:
                                 #print modelcopy.Component(list_of_comp_values).component_value
