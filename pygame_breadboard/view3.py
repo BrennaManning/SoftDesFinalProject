@@ -13,16 +13,10 @@ class View3():
         #determine where to draw
         self.screen = pygame.display.set_mode((width, height))
         self.game_model = g_model
-             
-        #self.game_model = model.Model(960, 480)
-        #self.view = View(self.game_model, 960, 480)
-        #self.controller = Controller(self.game_model)
         pygame.font.init()
         self.myfont = pygame.font.SysFont("monospace", 15)
         self.V_text = "?"
       
-        #self.cutoff_frequency_text = self.game_model.cutoff_frequency_text
-
     def draw(self):
         """ Redraw the full game window """
         # get the new drawables
@@ -52,10 +46,10 @@ class View3():
         c2_label = self.myfont.render("0.047 nF C", 1, (0,0,0))
         self.screen.blit(c2_label, (70, 365))
        
-        COF_Text_High = self.myfont.render(self.game_model.cutoff_frequency_high, 1, (0,0,0))   
+        COF_Text_High = self.myfont.render(self.game_model.cutoff_freqh_text, 1, (0,0,0))   
         self.screen.blit(COF_Text_High, (855, 315))
 
-        COF_Text_Low = self.myfont.render(self.game_model.cutoff_frequency_low, 1, (0,0,0))   
+        COF_Text_Low = self.myfont.render(self.game_model.cutoff_freql_text, 1, (0,0,0))   
         self.screen.blit(COF_Text_Low, (855, 272))
 
         V_Text = self.myfont.render(self.game_model.voltage, 1, (0,0,0))

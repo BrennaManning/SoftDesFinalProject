@@ -10,13 +10,8 @@ class View():
         """ Initialize the view. The input model is necessary to find 
             the position of relevant objects to draw. """
         pygame.init()
-        #determine where to draw
         self.screen = pygame.display.set_mode((width, height))
         self.game_model = g_model
-             
-        #self.game_model = model.Model(960, 480)
-        #self.view = View(self.game_model, 960, 480)
-        #self.controller = Controller(self.game_model)
         pygame.font.init()
         self.myfont = pygame.font.SysFont("monospace", 15)
         self.V_text = "?"
@@ -65,33 +60,6 @@ class View():
             surf = d.get_surface()
             surf.set_colorkey((255,255,255))
             self.screen.blit(surf, rect)
-
-class DrawComponent():
-    """A class that draws components in position"""
-    def __init__(self,spot,ctype):
-        """initializes the class"""
-        self.spot = spot
-        self.component_type = ctype
-
-        if self.component_type == "R":
-            self.image = pygame.image.load('images/Resistor.png')
-            self.image = pygame.transform.scale(self.image, (120, 30))
-        if self.component_type == "C":
-            self.image = pygame.image.load('images/Capacitor.png')
-            self.image = pygame.transform.scale(self.image, (120, 30))
-
-        if self.spot == "1":
-            self.pos = (500, 200)
-
-        if self.spot == "2":
-
-            self.pos = (700, 300)
-
-        return DrawableSurface(self.image,pygame.Rect((self.pos),
-                                self.image.get_size()))
-
-
-        pass
 
 class DrawableSurface():
     """ A class that wraps a pygame.Surface and a pygame.Rect """

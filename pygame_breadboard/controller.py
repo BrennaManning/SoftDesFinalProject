@@ -3,24 +3,23 @@ from random import randint
 import time
 import pygame
 import modelcopy
-import view
-
 
 class Controller():
     def __init__(self, model):
 	""" the control class """
         self.game_model = model
         self.state = 0
-        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
+        self.states = ["Click the component to begin placement",
+                       "Click the position of the component", 
+                       "Click for next level!"]
         self.level = 1
 
     def process_events(self, events):
-
         """ process keyboard events. Function called periodically """
+        g = self.game_model
         pygame.event.pump()
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
-            # if pygame.mouse.get_pressed == (1,0,0):
                 mpos = pygame.mouse.get_pos() 
                 #Gets mouse position
                 if self.state == 0:
@@ -32,29 +31,23 @@ class Controller():
                     print(self.states[self.state])
                 elif self.state == 1:
                     #STATE: PLACE COMPONENT
-                    if mpos[0] > 200:
-                        if self.state == 1:
-                            self.mpos2 = mpos
-
-                            print(self.states[self.state])
-                            self.list_of_comp_values = [self.game_model.define_type(self.mpos1),
-                                self.game_model.define_value(self.mpos1),
-                                self.game_model.define_spot(self.mpos2)]                            
-                            # print self.list_of_comp_values
-                            self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
-                            self.game_model.component_list.append(modelcopy.Component(self.list_of_comp_values))
-                           # self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
-                            if len(self.game_model.component_list) > 1: 
-                                if self.game_model.cutoff_frequency_text == "61":
-                                    self.state = 2
-                                else: self.state = 0
+                    self.mpos2 = mpos
+                    if g.define_spot(self.mpos2) != False:
+                        self.list_of_comp_values = [g.define_type(self.mpos1),
+                                                    g.define_value(self.mpos1),
+                                                    g.define_spot(self.mpos2)]                            
+                        g.calculate_LP_cutoff(self.list_of_comp_values)
+                        g.component_list.append(modelcopy.Component(self.list_of_comp_values))
+                        if len(g.component_list) > 1:
+                            if int(g.cutoff_frequency) > 60:
+                                self.state = 2
                             else:
+                                g.component_list = []
                                 self.state = 0
+                                print "Not quite right, try again"
+                        else:
+                            self.state = 0
+                        print(self.states[self.state])
                 elif self.state == 2:
                     #STATE: NEXT LEVEL
                     self.level = 2
-            # if pygame.mouse.get_pressed == (0,1,0):
-            #     if self.state > 0:
-            #         self.state -=1
-
-

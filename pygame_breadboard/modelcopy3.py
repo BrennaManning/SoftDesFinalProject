@@ -18,20 +18,19 @@ class Model3():
         self.c1 = 0
         self.r2 = 0
         self.c2 = 0
-        self.cutoff_frequency_low = "?"
-        self.cutoff_frequency_high = "?"
-        self.level = 1
+        self.cutoff_freql_text = "?"
+        self.cutoff_freqh_text = "?"
+        self.cutoff_freql = 0
+        self.cutoff_freqh = 0
         self.drawables = []
         self.voltage = "?"
 
     def update(self, events):
         """updates all aspects of the game"""
-        # pass
         events = events
-        Background.get_drawables
- 
+         
     def calculate_bandwidth(self, complist):    
-        """calculates the cutoff frequency for a low pass filter"""\
+        """calculates the cutoff frequency for a low pass filter"""
 
         self.type = complist[0]
         self.spot = complist[2]
@@ -39,23 +38,20 @@ class Model3():
         self.fail = False
 
         if self.spot == "1" or self.spot == "2":
-            print "Calculation if Loop 1st filter"
+            # print "Calculation if Loop 1st filter"
             if self.type == "C":
                 if self.c1 == 0:
                     self.c1 = self.value
                 else:
                     self.fail = True
-            else: # if self.type == "R"
+            else:
                 if self.r1 == 0:
                     self.r1 = self.value
                 else:
                     self.fail = True
-        
-    
-
 
         if self.spot == "3" or self.spot == "4":
-            print "calculation if loop 2nd filter"
+            # print "Calculation if loop 2nd filter"
             if self.type == "C":
                 if self.c2 == 0:
                     self.c2 = self.value
@@ -67,41 +63,22 @@ class Model3():
                 else:
                     self.fail = True
 
-        if self.fail:
-            print "Try Again"
-
-
         if self.c1 != 0 and self.c2 != 0 and self.r1 != 0 and self.r2 != 0:
             cf_low = int((1/(2*pi*(self.r1)*(self.c1))/1000))
+            print "hello!"
             cf_low = str(cf_low)
-            self.cutoff_frequency_low = cf_low + "K"
-            print self.cutoff_frequency_low
+            self.cutoff_freql = cf_low
+            self.cutoff_freql_text = cf_low + "K"
+            print self.cutoff_freql_text
             cf_high = int((1/(2*pi*(self.r2)*(self.c2))/1000))
             cf_high = str(cf_high)
-            self.cutoff_frequency_high = cf_high + "K"
-            print self.cutoff_frequency_high
+            self.cutoff_freqh = cf_high
+            self.cutoff_freqh_text = cf_high + "K"
+            print self.cutoff_freqh_text
             voltage_change = float((self.r2)/self.r1)
             voltage = 5 + voltage_change
             self.voltage = str(voltage)
             print self.voltage
-
-
-        #if self.r == 100000 or self.r == 1000:
-         #   if self.c == float(0.0000026) or self.c == float(0.00001):
-          #      LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
-                #self.cutoff_frequency_text = str(LP_cutoff_f)
-           #     LP_cutoff_f = int(LP_cutoff_f)
-            #    LP_cutoff_f = str(LP_cutoff_f)
-             #   print "Cut-Off Frequency = "
-              #  print LP_cutoff_f
-               # self.cutoff_frequency_text = LP_cutoff_f
-                #return LP_cutoff_f
-                #f LP_cutoff_f == "61":
-                  #  pygame.time.wait(2000)
-                   # self.level = 2
-
-
-
 
     def define_type(self, mpos):
         """determines what type of component is selected"""
@@ -119,9 +96,7 @@ class Model3():
             if self.selected == 'r1' or self.selected == 'r2':
                 component_type = "R" 
             if self.selected == 'c1' or self.selected == 'c2':
-                component_type = "C" 
-            #print component_type
-            
+                component_type = "C"
             return component_type
 
     def define_value(self, mpos):
@@ -137,8 +112,6 @@ class Model3():
                 self.value = float(0.000000000047)
             
             component_value = self.value
-            #print component_value
-            
             return component_value
 
     def define_spot(self,mpos):
@@ -156,22 +129,14 @@ class Model3():
         if mpos_coord == (4,1):
             spot = "4"           
             return spot
+        else:
+            return False
     
     def end_program(self, events):
         """ends the program"""
         for event in events:
             if event.type == pygame.QUIT:
                 return True
-
-
-    def model_get_components(self,mpos1,mpos2):
-        """forms list of components in model class"""
-        
-        model_component = Component(mpos1,mpos2).get_component
-        #print model_component
-        if model_component[2] != None:
-            component_list.append[component]
-        #print model_components
 
     def get_all_drawables(self):
         """ gets all drawables from various places """   
@@ -210,8 +175,6 @@ class DrawableSurface():
 class Background(object):
     def __init__(self):
         self.screen = pygame.display.set_mode((400,200))
-        self.state = 0
-        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
         self.pos = (0,0)
         self.image = pygame.image.load('images/CircuitSimLevel3Background.png')
         self.image = pygame.transform.scale(self.image, (960,480))
@@ -225,14 +188,9 @@ class Background(object):
 class Component():
     def __init__(self, compList):
         """initializes a component"""
-        # self.component_type = compList[0]
         self.component_value = compList[1]
         self.component_spot = compList[2]
         self.image = self.component_type(self.component_spot, compList[0])
-        # View.draw_component()
-        
-        #self.mpos2 = mpos2
-        #self.spot = self.define_spot(self.mpos2)
 
     def get_drawables(self):
         """ gets a list of all enemy drawables"""
@@ -265,8 +223,6 @@ class Component():
         """gets the drawables for the component block"""
         draw_component = DrawComponent(self.component_spot,self.component_type)
         return draw_component
-        #return DrawableSurface(self.image,pygame.Rect((self.pos),
-                                #self.image.get_size()))
 
     def get_component(self):
         """ makes a list to represent the component"""
@@ -275,4 +231,4 @@ class Component():
 
         if component[2] != None:
             print component
-        return component 
+        return component

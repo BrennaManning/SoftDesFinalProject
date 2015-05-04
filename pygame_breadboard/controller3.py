@@ -6,15 +6,17 @@ import modelcopy3
 
 class Controller():
     def __init__(self, model):
-	""" the control class """
-        #self.game_model = model.Model(960, 480)
+        """ the control class """
         self.game_model = model
         self.state = 0
-        self.states = ["State 0: user needs to click the component to begin placement", "State 1: user needs to click the position of the component"]
+        self.states = ["State 0: user needs to click the component to begin placement", 
+                       "State 1: user needs to click the position of the component",
+                       "you won!"]
         self.level = 3
 
     def process_events(self, events):
         """ process keyboard events. Function called periodically """
+        g = self.game_model
         pygame.event.pump()
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -29,24 +31,28 @@ class Controller():
                     print(self.states[self.state])
                 elif self.state == 1:
                     #STATE: PLACE COMPONENT
-                    if mpos[0] > 200:
-                        if self.state == 1:
-                            self.mpos2 = mpos
-                            print self.game_model.define_spot(self.mpos2)
-
-                            print(self.states[self.state])
-                            self.list_of_comp_values = [self.game_model.define_type(self.mpos1),
-                                self.game_model.define_value(self.mpos1),
-                                self.game_model.define_spot(self.mpos2)]
-
-                            print self.list_of_comp_values
-                            self.game_model.calculate_bandwidth(self.list_of_comp_values)
-                            self.game_model.component_list.append(modelcopy3.Component(self.list_of_comp_values))
-                            #if len(self.game_model.component_list) > 3:
-                             #   self.state = 2
-                            #else:
+                    self.mpos2 = mpos
+                    if g.define_spot(self.mpos2) != False:
+                        self.list_of_comp_values = [g.define_type(self.mpos1),
+                                                    g.define_value(self.mpos1),
+                                                    g.define_spot(self.mpos2)]                            
+                        g.calculate_bandwidth(self.list_of_comp_values)
+                        g.component_list.append(modelcopy3.Component(self.list_of_comp_values))
+                        if len(g.component_list) > 3:
+                            if int(g.cutoff_freql) > 98:
+                                if int(g.cutoff_freqh) > 199:
+                                    self.state = 2
+                            else:
+                                g.component_list = []
+                                self.state = 0
+                                print "Not quite right, try again"
+                                print "hint: cutoff = 1/(2pi*R1*C1)"
+                        else:
                             self.state = 0
+                        print(self.states[self.state])
                 elif self.state == 2:
-                    #STATE: NEXT LEVEL
-                    self.level = 3
-                    print "LEVEL 3 ACHIEVED"
+                #STATE: NEXT LEVEL
+                    print "GAME WON -- FOR NOW"
+                    print "...>>>>>....>>>>>....."
+                    print "brought to you by!!!"
+                    print "MICHAEL AND BRENNAAAAAAA"
