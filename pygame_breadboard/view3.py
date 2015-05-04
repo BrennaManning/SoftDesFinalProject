@@ -53,14 +53,13 @@ class View3():
         self.screen.blit(c2_label, (70, 365))
        
         COF_Text_High = self.myfont.render(self.game_model.cutoff_frequency_high, 1, (0,0,0))   
-        self.screen.blit(COF_Text_High, (855, 302))
+        self.screen.blit(COF_Text_High, (855, 315))
 
         COF_Text_Low = self.myfont.render(self.game_model.cutoff_frequency_low, 1, (0,0,0))   
-        self.screen.blit(COF_Text_Low, (855, 302))
+        self.screen.blit(COF_Text_Low, (855, 272))
 
-       
         V_Text = self.myfont.render(self.game_model.voltage, 1, (0,0,0))
-        self.screen.blit(V_Text, (855, 192))
+        self.screen.blit(V_Text, (855, 172))
 
         drawables = self.game_model.get_all_drawables() 
         for d in drawables:
