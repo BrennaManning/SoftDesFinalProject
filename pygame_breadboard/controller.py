@@ -44,8 +44,10 @@ class Controller():
                             self.game_model.calculate_LP_cutoff(self.list_of_comp_values)
                             self.game_model.component_list.append(modelcopy.Component(self.list_of_comp_values))
                            # self.game_model.components.append(modelcopy.Component(self.list_of_comp_values).get_component)
-                            if len(self.game_model.component_list) > 1:
-                                self.state = 2
+                            if len(self.game_model.component_list) > 1: 
+                                if self.game_model.cutoff_frequency_text == "61":
+                                    self.state = 2
+                                else: self.state = 0
                             else:
                                 self.state = 0
                 elif self.state == 2:

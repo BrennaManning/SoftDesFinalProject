@@ -72,8 +72,6 @@ class Model():
                     self.level = 2
 
 
-
-
     def define_type(self, mpos):
         """determines what type of component is selected"""
 

@@ -28,8 +28,8 @@ class Model2():
         Background.get_drawables
  
 
-    def calculate_LP_cutoff(self, complist):    
-        """calculates the cutoff frequency for a low pass filter"""\
+    def calculate_HP_cutoff(self, complist):    
+        """calculates the cutoff frequency for a high pass filter"""\
 
         self.type = complist[0]
         self.spot = complist[2]
@@ -44,7 +44,7 @@ class Model2():
             else:
                 self.fail = True
             if self.fail == True:
-                print "Not a lowpass filter: try again"
+                print "Not a highpass filter: try again"
 
         elif self.spot == "2":
             
@@ -54,24 +54,21 @@ class Model2():
             else:
                 self.fail = True
             if self.fail:
-                print "Not a lowpass filter: try again"
+                print "Not a highpass filter: try again"
 
         if self.r == 100000 or self.r == 1000:
             if self.c == float(0.0000026) or self.c == float(0.00001):
-                LP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
+                HP_cutoff_f = 1/(2*pi*(self.r)*(self.c))
                 #self.cutoff_frequency_text = str(LP_cutoff_f)
-                LP_cutoff_f = int(LP_cutoff_f)
-                LP_cutoff_f = str(LP_cutoff_f)
+                HP_cutoff_f = int(LP_cutoff_f)
+                HP_cutoff_f = str(LP_cutoff_f)
                 print "Cut-Off Frequency = "
-                print LP_cutoff_f
-                self.cutoff_frequency_text = LP_cutoff_f
+                print HP_cutoff_f
+                self.cutoff_frequency_text = HP_cutoff_f
                 return LP_cutoff_f
-                if LP_cutoff_f == "61":
+                if HP_cutoff_f == "61":
                     pygame.time.wait(2000)
                     self.level = 2
-
-
-
 
     def define_type(self, mpos):
         """determines what type of component is selected"""
