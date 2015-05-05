@@ -1,37 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
 <html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="SoftDes Final Project : Educational Game">
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+  <title>SoftDes Final Project</title>
+  <meta name="description" content="Educational Game">
 
-    <title>SoftDes Final Project</title>
-  </head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <body>
+</head>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/BrennaManning/SoftDesFinalProject">View on GitHub</a>
+<body>
 
-          <h1 id="project_title">SoftDes Final Project</h1>
-          <h2 id="project_tagline">Educational Game</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
+  <div class="wrapper">
+    <header>
+      <h1 class="title">SoftDes Final Project</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Educational Game</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/BrennaManning/SoftDesFinalProject" class="code">View SoftDes Final Project on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h3>
 <a id="software-design-spring-2015" class="anchor" href="#software-design-spring-2015" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Software Design Spring 2015</strong>
 </h3>
 
@@ -83,28 +88,30 @@ Level 3: Build a band pass filter with cut-off frequencies of 100kHz and 200kHz 
 
 <p><img src="http://i.imgur.com/yNOdDFd.png?1" alt=""></p>
 
-<p>`</p>
+<h3>
+<a id="project-evolution" class="anchor" href="#project-evolution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project Evolution</h3>
+
+<p><strong><em>Narrative</em></strong></p>
+
+<h3>
+<a id="attribution" class="anchor" href="#attribution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Attribution</h3>
+
+<p><strong><em>Resources Used</em></strong></p>
 
 <hr>
-
-<p>`</p>
 
 <h3>
 <a id="code-review-reflection" class="anchor" href="#code-review-reflection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code Review Reflection</h3>
 
 <p><strong>Feedback and decisions</strong></p>
 
-<p>Our biggest question going into our code review was whether we should have our calculations done component by component with a common function for each circuit configuration, or if we should approach solving these calculations by hard-coding distinct equations to best suit each level. Overwhelmingly the response we recieved was that we would be better off hard coding for specific levels. </p>
+<p>Our biggest question going into our code review was whether we should have our calculations done component by component with a common function for each circuit configuration, or if we should approach solving these calculations by hard-coding distinct equations to best suit each level. Overwhelmingly the response we received was that we would be better off hard coding for specific levels. </p>
 
 <p>The feedback we got from the code review was definitely useful for our project, and we are now moving forwards in that direction and making solid progress.</p>
 
-<p>In the future, we might want to have more big questions to ask at a review like this. This time we were primarily focused on the one question, which limited the feeedback that we would get from the review. </p>
-
-<p>`</p>
+<p>In the future, we might want to have more big questions to ask at a review like this. This time we were primarily focused on the one question, which limited the feedback that we would get from the review. </p>
 
 <hr>
-
-<p>`</p>
 
 <h3>
 <a id="code-review-framing-document" class="anchor" href="#code-review-framing-document" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code Review Framing Document</h3>
@@ -113,12 +120,9 @@ Level 3: Build a band pass filter with cut-off frequencies of 100kHz and 200kHz 
 <a href="https://docs.google.com/document/d/1IBA2wbp4oPcw-T8TtQDaDp49x7jf9vB1HdUsGG3f8cw/edit?usp=sharing">https://docs.google.com/document/d/1IBA2wbp4oPcw-T8TtQDaDp49x7jf9vB1HdUsGG3f8cw/edit?usp=sharing</a></p>
 
 <p>The powerpoint presentation we used during the code review can be found at:
-<a href="https://docs.google.com/presentation/d/1MA1UxnJFPN9MXqedZUm1tr5CWrb8rokEE-LiS0PJ5k8/edit?usp=sharing">https://docs.google.com/presentation/d/1MA1UxnJFPN9MXqedZUm1tr5CWrb8rokEE-LiS0PJ5k8/edit?usp=sharing</a>
-`</p>
+<a href="https://docs.google.com/presentation/d/1MA1UxnJFPN9MXqedZUm1tr5CWrb8rokEE-LiS0PJ5k8/edit?usp=sharing">https://docs.google.com/presentation/d/1MA1UxnJFPN9MXqedZUm1tr5CWrb8rokEE-LiS0PJ5k8/edit?usp=sharing</a></p>
 
 <hr>
-
-<p>`</p>
 
 <h3>
 <a id="design-review-1-reflection" class="anchor" href="#design-review-1-reflection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design Review 1 Reflection</h3>
@@ -156,22 +160,15 @@ our planned agenda, but for next time we might consider having a more specific/c
 especially in terms of how to use the space and available resources to our greatest advantage
 during the review. </p>
 
-<p>`</p>
-
 <hr>
-
-<p>`</p>
 
 <h3>
 <a id="design-review-framing-document" class="anchor" href="#design-review-framing-document" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design Review Framing Document</h3>
 
 <p>Our Design Review Framing Document can be found at:
-<a href="https://docs.google.com/document/d/1lj294VCaWQxfxUrCsu0QjCNLb6BnEO-KRSAd-D5TE4w/edit?usp=sharing">https://docs.google.com/document/d/1lj294VCaWQxfxUrCsu0QjCNLb6BnEO-KRSAd-D5TE4w/edit?usp=sharing</a>
-`</p>
+<a href="https://docs.google.com/document/d/1lj294VCaWQxfxUrCsu0QjCNLb6BnEO-KRSAd-D5TE4w/edit?usp=sharing">https://docs.google.com/document/d/1lj294VCaWQxfxUrCsu0QjCNLb6BnEO-KRSAd-D5TE4w/edit?usp=sharing</a></p>
 
 <hr>
-
-<p>`</p>
 
 <h2>
 <a id="final-project-proposal" class="anchor" href="#final-project-proposal" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>FINAL PROJECT PROPOSAL</strong>
@@ -206,18 +203,26 @@ Week 6: Buffer week for if anything goes wrong.
 <p>Learning Goals:  pygame, physics-modeling, user-oriented-design</p>
 
 <p>Risk: Underestimating scope of project.</p>
-      </section>
+        </article>
+      </div>
     </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/BrennaManning" class="avatar"><img src="https://avatars0.githubusercontent.com/u/8933563?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/BrennaManning">BrennaManning</a> maintains <a href="https://github.com/BrennaManning/SoftDesFinalProject">SoftDes Final Project</a></p>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">SoftDes Final Project maintained by <a href="https://github.com/BrennaManning">BrennaManning</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
 
-    
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master" class="tar">tar</a><a href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
 
-  </body>
+  
+</body>
 </html>
