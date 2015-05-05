@@ -25,7 +25,7 @@ class Model2():
         events = events
  
     def calculate_HP_cutoff(self, complist):    
-        """calculates the cutoff frequency for a high pass filter"""\
+        """calculates the cutoff frequency for a high pass filter"""
         self.type = complist[0]
         self.spot = complist[2]
         self.value = complist[1]
