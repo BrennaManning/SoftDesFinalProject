@@ -4,30 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>SoftDes Final Project by BrennaManning</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/BrennaManning/SoftDesFinalProject">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
     <div class="wrapper">
-      <header>
-        <h1>SoftDes Final Project</h1>
-        <p>Educational Game</p>
 
-        <p class="view"><a href="https://github.com/BrennaManning/SoftDesFinalProject">View the Project on GitHub <small>BrennaManning/SoftDesFinalProject</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/BrennaManning/SoftDesFinalProject">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
       <section>
+        <div id="title">
+          <h1>SoftDes Final Project</h1>
+          <p>Educational Game</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/BrennaManning">BrennaManning</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
         <h3>
 <a id="software-design-spring-2015" class="anchor" href="#software-design-spring-2015" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Software Design Spring 2015</strong>
 </h3>
@@ -65,9 +75,12 @@ To run: python main.py</p>
 <a id="implementation-information" class="anchor" href="#implementation-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation Information</h3>
 
 <p>Our code for the game followed this structure for the fist level.
-<img src="http://i.imgur.com/kM38ESE.png?1" alt=""></p>
+<img src="http://i.imgur.com/p4hLjw9.png?1" alt=""></p>
 
 <p>However, for subsequent levels, we decided to use separate model and controller files for each level. In retrospect, we realize that this was not the best way to structure our code. In the future we plan to consolidate into fewer files. </p>
+
+<h3>
+<a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
 
 <p>`</p>
 
@@ -193,12 +206,9 @@ Week 6: Buffer week for if anything goes wrong.
 
 <p>Risk: Underestimating scope of project.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/BrennaManning">BrennaManning</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
