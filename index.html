@@ -1,43 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>SoftDes Final Project by BrennaManning</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="SoftDes Final Project : Educational Game">
 
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>SoftDes Final Project</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/BrennaManning/SoftDesFinalProject">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
 
-    <div class="wrapper">
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/BrennaManning/SoftDesFinalProject">View on GitHub</a>
 
-      <section>
-        <div id="title">
-          <h1>SoftDes Final Project</h1>
-          <p>Educational Game</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/BrennaManning">BrennaManning</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+          <h1 id="project_title">SoftDes Final Project</h1>
+          <h2 id="project_tagline">Educational Game</h2>
 
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/BrennaManning/SoftDesFinalProject/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/BrennaManning/SoftDesFinalProject/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h3>
 <a id="software-design-spring-2015" class="anchor" href="#software-design-spring-2015" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Software Design Spring 2015</strong>
 </h3>
@@ -46,21 +39,18 @@
 <a id="circuitsim" class="anchor" href="#circuitsim" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>CIRCUITSIM</strong>
 </h3>
 
-<p>Michael Costello &amp; Brenna Manning</p>
-
-<p>`</p>
+<p>Created by Michael Costello &amp; Brenna Manning</p>
 
 <hr>
-
-<p>`</p>
 
 <h3>
 <a id="big-idea" class="anchor" href="#big-idea" aria-hidden="true"><span class="octicon octicon-link"></span></a>Big Idea:</h3>
 
 <p><strong>Why did we do this?</strong></p>
 
-<p>Our goal was to create a simulation game that could be both educational and interesting. This simulation game would help engineering students in entry level courses, such as ISIM at Olin College of Engineering, to learn about and get a chance to practice selecting components to use for building simple circuits. For example, a first year Olin student may need to know how to build a low pass filter of a certain cutoff frequency for an ISIM lab. Using our game, in level one, they could practice calculating what the cutoff frequency would be if they used resistors and capacitors of certain values, then, test if they did it right to pass the level. If they could solve that problem, they can use the same reasoning and calculations to build the circuit they need for their lab!  We also wanted our game to be user friendly, easy to understand, and visually appealing.
-The image below shows our GUI:
+<p>Our goal was to create a simulation game that could be both educational and interesting. This simulation game would help engineering students in entry level courses, such as ISIM at Olin College of Engineering, to learn about and get a chance to practice selecting components to use for building simple circuits. For example, a first year Olin student may need to know how to build a low pass filter of a certain cutoff frequency for an ISIM lab. Using our game, in level one, they could practice calculating what the cutoff frequency would be if they used resistors and capacitors of certain values, then, test if they did it right to pass the level. If they could solve that problem, they can use the same reasoning and calculations to build the circuit they need for their lab!  We also wanted our game to be user friendly, easy to understand, and visually appealing. We focused on filters and op amps.</p>
+
+<p>The image below shows our GUI:
 <img src="http://i.imgur.com/Jq0Ny7q.png?1" alt=""></p>
 
 <h3>
@@ -81,6 +71,17 @@ To run: python main.py</p>
 
 <h3>
 <a id="results" class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
+
+<p>We created a 3 level game.
+Level 1: Build a low pass filter with a cut-off frequency of 60 Hz from the given components.
+Level 2: Build a high pass filter with a cut-off frequency of 60 Hz from the given components.
+Level 3: Build a band pass filter with cut-off frequencies of 100kHz and 200kHz using an op amp and the given components. Calculate the output voltage.</p>
+
+<p>If a player fails to complete the task of a level, the game asks them to try again. Once they build the correct filter, they can click to move on to the next level. Once a player completes level 3, they win the game!</p>
+
+<p><img src="http://i.imgur.com/Cei1DMX.png?1" alt=""></p>
+
+<p><img src="http://i.imgur.com/yNOdDFd.png?1" alt=""></p>
 
 <p>`</p>
 
@@ -206,9 +207,17 @@ Week 6: Buffer week for if anything goes wrong.
 
 <p>Risk: Underestimating scope of project.</p>
       </section>
-
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">SoftDes Final Project maintained by <a href="https://github.com/BrennaManning">BrennaManning</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
     
+
   </body>
 </html>
