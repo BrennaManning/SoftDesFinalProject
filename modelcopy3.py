@@ -65,7 +65,7 @@ class Model3():
 
         if self.c1 != 0 and self.c2 != 0 and self.r1 != 0 and self.r2 != 0:
             cf_low = int((1/(2*pi*(self.r1)*(self.c1))/1000))
-            print "hello!"
+            #print "hello!"
             cf_low = str(cf_low)
             self.cutoff_freql = cf_low
             self.cutoff_freql_text = cf_low + "K"
